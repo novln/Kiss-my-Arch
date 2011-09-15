@@ -120,8 +120,6 @@ static Key keys[] = {
 	{ AltMask,			XK_Tab,    focusstack,       {.i = +1 } },
 };
 
-// XF86Eject XF86AudioNext XF86AudioPlay XF86AudioPrev XF86AudioRaiseVolume XF86AudioLowerVolume XF86AudioMute
-
 /* button definitions */
 /* click can be ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
 static Button buttons[] = {
