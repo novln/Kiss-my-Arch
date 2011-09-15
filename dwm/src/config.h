@@ -1,1 +1,1 @@
-/home/automne/dwm5.9/config.h
+/home/automne/git/dwm/config.h
