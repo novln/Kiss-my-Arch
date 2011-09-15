@@ -1,6 +1,6 @@
-=== Kiss my Arch' ===
+###Kiss my Arch'
 
-** My personal repo for my Archlinux. **
+**My personal repo for my Archlinux.**
 
 I'll add some scripts, some configurations and some stuff from me (or others).
 
