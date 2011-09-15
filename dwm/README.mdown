@@ -1,6 +1,6 @@
-=== Kiss my Arch' ===
+###Kiss my Arch'
 
-** My personal repo for my Archlinux. **
+**My personal repo for my Archlinux.**
 
 This is my custom dwm's package. I use bstack, cycle, gaplessgrid, movestack and push patches. 
 install.sh is a wrapper for makepkg.
