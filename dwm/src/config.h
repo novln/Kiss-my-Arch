@@ -1,0 +1,1 @@
+/home/automne/dwm5.9/config.h
