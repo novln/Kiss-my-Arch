@@ -1,1 +1,0 @@
-/home/automne/git/dwm/config.h
