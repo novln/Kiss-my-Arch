@@ -1,0 +1,1 @@
+void gaplessgrid(Monitor *m);

@@ -1,9 +1,9 @@
 /* See LICENSE file for copyright and license details. */
 
-#include "gaplessgrid.c"
-#include "movestack.c"
-#include "bstack.c"
-#include "push.c"
+#include "gaplessgrid.h"
+#include "movestack.h"
+#include "bstack.h"
+#include "push.h"
 #include "cycle.h"
 
 /* appearance */

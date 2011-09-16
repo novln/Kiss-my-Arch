@@ -31,9 +31,9 @@ bstack(Monitor *m) {
 
 static void
 bstackhoriz(Monitor *m) {
-int x, y, h, w, mh;
-unsigned int i, n;
-Client *c;
+	int x, y, h, w, mh;
+	unsigned int i, n;
+	Client *c;
 
 	for(n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++);
 	if(n == 0)
