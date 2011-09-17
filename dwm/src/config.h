@@ -1,1 +1,0 @@
-/home/automne/git/Kiss-my-Arch/dwm/config.h

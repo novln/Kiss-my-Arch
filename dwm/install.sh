@@ -1,6 +1,15 @@
-#!/bin/sh
+#!/bin/bash
 
-makepkg -efi
-cp .Xmodmap $HOME/.Xmodmap
-echo -e 'xmodmap ~/.Xmodmap\nDEFAULT_SESSION=dwm\nexec ck-launch-session $DEFAULT_SESSION\n' >> $HOME/.xinitrc
-$EDITOR $HOME/.xinitrc
+cp config.h src/
+cp dwm.desktop src/
+cp dwm-5.9.tar.gz src/
+
+if [ $1 == "nocheck" ]; then
+	makepkg -efi --skipinteg
+else
+	makepkg -efi
+fi
+
+rm src/config.h
+rm src/dwm.desktop
+rm src/dwm-5.9.tar.gz
