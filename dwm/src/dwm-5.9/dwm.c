@@ -1349,7 +1349,11 @@ resizeclient(Client *c, int x, int y, int w, int h) {
 	c->oldy = c->y; c->y = wc.y = y;
 	c->oldw = c->w; c->w = wc.width = w;
 	c->oldh = c->h; c->h = wc.height = h;
-	wc.border_width = c->bw;
+	wc.border_width = (c->mon->lt[c->mon->sellt]->arrange == monocle && !c->isfloating) ? 0 : c->bw;
+	if(c->mon->lt[c->mon->sellt]->arrange == monocle && !c->isfloating) {
+		c->w = wc.width += borderpx * 2;
+		c->h = wc.height += borderpx * 2;
+	}
 	XConfigureWindow(dpy, c->win, CWX|CWY|CWWidth|CWHeight|CWBorderWidth, &wc);
 	configure(c);
 	XSync(dpy, False);
