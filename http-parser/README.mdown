@@ -8,9 +8,7 @@ I use it with node.native
 
 **How to install**
 
-./install
-
-Or... Use: yaourt http-parser.
+# yaourt http-parser-git.
 
 _Enjoy_
 
