@@ -1,12 +1,12 @@
 # Maintainer: LE ROUX Thomas <archlinux@november-eleven.fr>
 
 pkgname=libuv-git
-pkgver=20120210
+pkgver=20120905
 pkgrel=1
 pkgdesc="libuv is a new platform layer for Node.JS"
 arch=('i686' 'x86_64')
 url="https://github.com/joyent/libuv"
-license=('MIT')
+license=('custom')
 depends=('glibc')
 makedepends=('git')
 provides=(libuv)
@@ -46,10 +46,6 @@ package() {
   install -Dm644 README.md \
         ${pkgdir}/usr/share/doc/${_pkgname}/README.md
 
-  install -Dm644 include/ares.h \
-        "${pkgdir}/usr/include/${_pkgname}/ares.h"
-  install -Dm644 include/ares_version.h \
-        "${pkgdir}/usr/include/${_pkgname}/ares_version.h"
   install -Dm644 include/uv.h \
         "${pkgdir}/usr/include/${_pkgname}/uv.h"
   install -Dm644 include/uv-private/eio.h \
