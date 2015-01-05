@@ -1,0 +1,9 @@
+---
+- name: write /etc/hostname configuration
+  tags: hostname
+  template:
+    src: hostname.j2
+    dest: /etc/hostname
+    owner: root
+    group: root
+    mode: 0644

@@ -1,0 +1,9 @@
+---
+- name: write /etc/vconsole.conf configuration
+  tags: vconsole
+  template:
+    src: vconsole.conf.j2
+    dest: /etc/vconsole.conf
+    owner: root
+    group: root
+    mode: 0644
