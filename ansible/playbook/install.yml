@@ -1,0 +1,6 @@
+---
+- hosts: all
+  roles:
+    - install
+  vars_files:
+    - conf/install.yml

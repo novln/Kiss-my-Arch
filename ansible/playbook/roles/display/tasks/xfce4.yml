@@ -1,0 +1,18 @@
+---
+- name: install xfce4
+  tags: xfce4
+  pacman:
+    name: "exo,garcon,thunar,thunar-volman,tumbler,xfce4-appfinder,xfce4-mixer,xfce4-panel,xfce4-power-manager,xfce4-session,xfce4-settings,xfce4-terminal,xfconf,xfdesktop,xfwm4,xfwm4-themes"
+    state: present
+
+- name: install gtk-xfce engines
+  tags: xfce4
+  pacman:
+    name: "gtk2-xfce-engine,gtk3-xfce-engine"
+    state: present
+
+- name: install xfce4 packages
+  tags: xfce4
+  pacman:
+    name: "xfce4-battery-plugin,thunar-media-tags-plugin,thunar-archive-plugin,file-roller,xfce4-panel,gvfs,python2,gstreamer0.10-good-plugins,ffmpegthumbnailer,libgsf"
+    state: present

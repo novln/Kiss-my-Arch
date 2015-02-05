@@ -1,0 +1,4 @@
+---
+- include: virtualbox.yml
+- include: media.yml
+- include: git.yml

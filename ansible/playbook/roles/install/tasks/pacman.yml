@@ -1,0 +1,24 @@
+---
+- name: update pacman mirrorlist
+  tags: pacman
+  template:
+    src: mirrorlist.j2
+    dest: /etc/pacman.d/mirrorlist
+    owner: root
+    group: root
+    mode: 0644
+
+- name: write pacman configuration
+  tags: pacman
+  copy:
+    src: pacman.conf
+    dest: /etc/pacman.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: update pacman database
+  tags: pacman
+  pacman:
+    update_cache: yes
+    state: present

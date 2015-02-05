@@ -1,0 +1,11 @@
+---
+- include: hostname.yml
+- include: locale.yml
+- include: vconsole.yml
+- include: timezone.yml
+- include: fstab.yml
+- include: kernel.yml
+- include: pacman.yml
+- include: grub.yml
+- include: network.yml
+- include: reboot.yml

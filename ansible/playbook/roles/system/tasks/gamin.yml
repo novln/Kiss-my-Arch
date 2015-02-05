@@ -1,0 +1,6 @@
+---
+- name: install gamin
+  tags: gamin
+  pacman:
+    name: gamin
+    state: present

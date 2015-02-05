@@ -1,0 +1,36 @@
+---
+- name: install vlc with pacman
+  tags: vlc
+  pacman:
+    name: "vlc,twolame"
+    state: present
+
+- name: install chromium with pacman
+  tags: chromium
+  pacman:
+    name: "chromium"
+    state: present
+
+- name: install inkscape with pacman
+  tags: inkscape
+  pacman:
+    name: "inkscape"
+    state: present
+
+- name: install gimp with pacman
+  tags: gimp
+  pacman:
+    name: "gimp"
+    state: present
+
+- name: install evince with pacman
+  tags: evince
+  pacman:
+    name: "evince"
+    state: present
+
+- name: install zip with pacman
+  tags: zip
+  pacman:
+    name: "zip,unzip"
+    state: present

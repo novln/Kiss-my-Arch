@@ -1,0 +1,6 @@
+---
+- name: update pacman database
+  tags: pacman
+  pacman:
+    update_cache: yes
+    state: present

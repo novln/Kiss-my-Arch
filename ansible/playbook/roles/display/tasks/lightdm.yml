@@ -1,0 +1,45 @@
+---
+- name: install lightdm
+  tags: lightdm
+  pacman:
+    name: "lightdm,lightdm-gtk3-greeter,accountsservice"
+    state: present
+
+- name: enable lightdm at startup
+  tags: lightdm
+  service:
+    name: lightdm
+    enabled: yes
+
+- name: install light-locker
+  tags: lightdm
+  pacman:
+    name: light-locker
+    state: present
+
+- name: write lightdm configuration
+  tags: lightdm
+  copy:
+    src: lightdm.conf
+    dest: /etc/lightdm/lightdm.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: write lightdm gdk greeter configuration
+  tags: lightdm
+  copy:
+    src: lightdm-gtk-greeter.conf
+    dest: /etc/lightdm/lightdm-gtk-greeter.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: write xflock4 script
+  tags: lightdm
+  copy:
+    src: xflock4
+    dest: /usr/local/bin/xflock4
+    owner: root
+    group: root
+    mode: 0755

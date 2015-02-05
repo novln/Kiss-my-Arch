@@ -1,0 +1,9 @@
+---
+- name: symlink /etc/localtime
+  tags: timezone
+  command: "ln -snf /usr/share/zoneinfo/{{ localtime }} /etc/localtime"
+  ignore_errors: yes
+
+- name: configure hardware clock
+  tags: timezone
+  command: hwclock --systohc --utc

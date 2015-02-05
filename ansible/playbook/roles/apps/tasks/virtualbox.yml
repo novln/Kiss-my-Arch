@@ -1,0 +1,38 @@
+---
+- name: install virtualbox with pacman
+  tags: virtualbox
+  pacman:
+    name: "virtualbox,qt4"
+    state: present
+
+- name: add user in vboxusers group
+  tags: virtualbox
+  user:
+    append: yes
+    name: "{{ user_name }}"
+    groups: vboxusers
+
+- name: load virtualbox modules via modprobe
+  tags: virtualbox
+  modprobe:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - vboxdrv
+    - vboxnetadp
+    - vboxnetflt
+    - vboxpci
+
+- name: enable virtualbox modules loading at startup
+  tags: virtualbox
+  copy:
+    content: "{{ item }}"
+    dest: "/etc/modules-load.d/{{ item }}.conf"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - vboxdrv
+    - vboxnetadp
+    - vboxnetflt
+    - vboxpci

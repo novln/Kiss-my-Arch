@@ -1,0 +1,9 @@
+---
+- hosts: all
+  roles:
+    - system
+    - network
+    - display
+  vars_files:
+    - conf/display.yml
+    - conf/common.yml

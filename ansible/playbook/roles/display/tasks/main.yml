@@ -1,0 +1,7 @@
+---
+- include: xorg.yml
+- include: gtk.yml
+- include: themes.yml
+- include: lightdm.yml
+- include: xfce4.yml
+- include: accounts.yml

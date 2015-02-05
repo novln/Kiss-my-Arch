@@ -1,0 +1,10 @@
+# 
+# /etc/fstab: static file system information
+#
+# <file system>	<dir>	<type>	<options>	<dump>	<pass>
+
+{% for fs in fstab %}
+
+# {{ fs.name }}
+UUID={{ fs.uuid }}    {{ fs.mountpoint }}    {{ fs.type }}        {{ fs.options }}        {{ fs.dump }} {{ fs.pass }}
+{% endfor %}

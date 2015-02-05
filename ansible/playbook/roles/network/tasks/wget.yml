@@ -1,0 +1,6 @@
+---
+- name: install wget with pacman
+  tags: wget
+  pacman:
+    name: "wget"
+    state: present

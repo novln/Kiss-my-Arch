@@ -1,0 +1,26 @@
+---
+- name: install grub with pacman
+  tags: grub
+  pacman:
+    name: grub
+    state: present
+  register: grub_install
+
+- name: install grub on MBR
+  tags: grub
+  command: "grub-install --no-floppy --recheck {{ grub_fs }}"
+  when: grub_install|changed
+
+- name: update /etc/default/grub configuration
+  tags: grub
+  lineinfile:
+    dest: /etc/default/grub
+    regexp: "^{{ item.key }}="
+    line: "{{ item.key }}={{ item.value }}"
+  with_items: grub_options
+  register: grub_default
+
+- name: update grub configuration
+  tags: grub
+  command: grub-mkconfig -o /boot/grub/grub.cfg
+  when: grub_default|changed or grub_install|changed

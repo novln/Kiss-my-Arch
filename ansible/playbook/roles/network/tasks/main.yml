@@ -1,0 +1,5 @@
+---
+- include: openssh.yml
+- include: wget.yml
+- include: curl.yml
+- include: wicd.yml

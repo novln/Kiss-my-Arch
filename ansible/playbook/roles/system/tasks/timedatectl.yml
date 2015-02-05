@@ -1,0 +1,6 @@
+---
+- name: enable ntp
+  tags: timedatectl
+  shell: "timedatectl set-ntp true && touch /var/lib/systemd/ntp"
+  args:
+    creates: /var/lib/systemd/ntp

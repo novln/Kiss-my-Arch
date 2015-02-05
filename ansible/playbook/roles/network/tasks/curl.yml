@@ -1,0 +1,6 @@
+---
+- name: install curl with pacman
+  tags: curl
+  pacman:
+    name: "curl"
+    state: present

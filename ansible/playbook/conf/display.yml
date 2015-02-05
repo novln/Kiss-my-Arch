@@ -1,0 +1,6 @@
+---
+#xorg_driver: xf86-video-intel
+xorg_driver: xf86-video-vesa
+xorg_synaptics: yes
+xorg_keyboard_layout: fr
+xorg_keyboard_variant: oss

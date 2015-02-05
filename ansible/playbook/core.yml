@@ -1,6 +1,0 @@
----
-- hosts: all
-  roles:
-    - core
-  vars_files:
-    - conf/core.yml

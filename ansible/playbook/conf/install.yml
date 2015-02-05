@@ -1,0 +1,44 @@
+---
+hostname: "neko"
+locale: "fr_FR.UTF-8 UTF-8"
+lang: "fr_FR.UTF-8"
+vconsole_keymap: "fr-pc"
+vconsole_font: "lat9w-16"
+localtime: "Europe/Paris"
+fstab:
+    - {
+        name: "/dev/sda1",
+        uuid: "4ef277db-9b5e-4bbf-ac78-0a216bb7b169",
+        mountpoint: "/",
+        type: "ext4",
+        options: "defaults,noatime,discard",
+        dump: 0,
+        pass: 1,
+      }
+    - {
+        name: "/dev/sda2",
+        uuid: "a43b090e-30a2-4d1c-b9a2-43b9933e7956",
+        mountpoint: "/home",
+        type: "ext4",
+        options: "defaults,noatime,discard",
+        dump: 0,
+        pass: 2,
+      }
+modprobe:
+    - {
+        name: "nobeep.conf",
+        value: "blacklist pcspkr",
+      }
+mkinitcpio_modules: "i915"
+mkinitcpio_binaries: ""
+mkinitcpio_files: ""
+mkinitcpio_hooks: "base udev autodetect modconf block filesystems keyboard fsck"
+grub_fs: "/dev/sda"
+grub_options:
+    - {
+        key: "GRUB_CMDLINE_LINUX_DEFAULT",
+        value: '"quiet elevator=noop"'
+      }
+pacman_mirrorlist:
+        - "http://mir.archlinux.fr/$repo/os/$arch"
+        - "http://delta.archlinux.fr/$repo/os/$arch"

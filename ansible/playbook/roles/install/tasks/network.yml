@@ -1,0 +1,17 @@
+---
+- name: install network packages with pacman
+  tags: network
+  pacman:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - wicd
+    - dialog
+    - wireless_tools
+    - wpa_supplicant
+
+- name: enable wicd at startup
+  tags: network
+  service:
+    name: wicd
+    enabled: yes

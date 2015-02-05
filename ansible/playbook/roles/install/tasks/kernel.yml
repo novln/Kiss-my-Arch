@@ -1,0 +1,26 @@
+---
+- name: write modprobe configuration
+  tags: kernel
+  template:
+    src: modprobe.j2
+    dest: "/etc/modprobe.d/{{ item.name }}"
+    owner: root
+    group: root
+    mode: 0644
+  with_items: modprobe
+  register: modprobe_update
+
+- name: write mkinitcpio configuration
+  tags: kernel
+  template:
+    src: mkinitcpio.conf.j2
+    dest: /etc/mkinitcpio.conf
+    owner: root
+    group: root
+    mode: 0644
+  register: mkinitcpio_update
+
+- name: update archlinux kernel
+  tags: kernell
+  command: mkinitcpio -p linux
+  when: modprobe_update|changed or mkinitcpio_update|changed

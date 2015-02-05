@@ -1,0 +1,48 @@
+---
+- name: install faenza icon themes
+  tags: icon
+  pacman:
+    name: "faenza-icon-theme"
+    state: present
+
+- name: install sublime-text faenza icon
+  tags: icon
+  copy:
+    src: sublime_text.svg
+    dest: /usr/share/icons/Faenza/apps/scalable/sublime_text.svg
+    owner: root
+    group: root
+    mode: 0644
+
+# - name: install wicd faenza icon
+#   tags: icon
+#   unarchive:
+#     src: wicd.tar.xz
+#     dest: /usr/share/pixmaps
+
+- name: install Vertex gtk themes
+  tags: gtk
+  unarchive:
+    src: "{{ item }}"
+    dest: /usr/share/themes
+  with_items:
+    - Vertex.tar.xz
+    - Vertex-Dark.tar.xz
+    - Vertex-Light.tar.xz
+
+- name: install axiom gtk themes
+  tags: gtk
+  unarchive:
+    src: "{{ item }}"
+    dest: /usr/share/themes
+  with_items:
+    - axiom.tar.xz
+    - axiomd.tar.xz
+
+- name: install japan wallpaper themes
+  tags: wallpaper
+  unarchive:
+    src: "{{ item }}"
+    dest: /usr/share/pixmaps
+  with_items:
+    - japan-wallpaper.tar.xz

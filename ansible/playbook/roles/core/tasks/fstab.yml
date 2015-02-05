@@ -1,9 +1,0 @@
----
-- name: write /etc/fstab configuration
-  tags: fstab
-  template:
-    src: fstab.j2
-    dest: /etc/fstab
-    owner: root
-    group: root
-    mode: 0644

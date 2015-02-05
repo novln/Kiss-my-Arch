@@ -1,0 +1,6 @@
+---
+- name: install openssh with pacman
+  tags: openssh
+  pacman:
+    name: "openssh"
+    state: present

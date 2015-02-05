@@ -1,0 +1,10 @@
+---
+- name: message
+  tags: reboot
+  debug:
+    msg: "Your system is ready, but a reboot is required..."
+
+- name: message
+  tags: reboot
+  debug:
+    msg: "Don't forget to change root password !!!"

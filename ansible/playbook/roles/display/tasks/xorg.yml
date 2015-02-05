@@ -1,0 +1,59 @@
+---
+- name: install Xorg with pacman
+  tags: xorg
+  pacman:
+    name: "xorg-server,xorg-xinit,xorg-server-utils"
+    state: present
+  register: xorg_install
+
+- name: install xf86-video-* driver with pacman
+  tags: xorg
+  pacman:
+    name: "{{ xorg_driver }}"
+    state: present
+  when: xorg_install|changed
+
+- name: install xf86-input-synaptics driver with pacman
+  tags: xorg
+  pacman:
+    name: xf86-input-synaptics
+    state: present
+  when: xorg_synaptics
+
+- name: write keyboard configuration for Xorg
+  tags: xorg
+  template:
+    src: keyboard-layout.conf.j2
+    dest: /etc/X11/xorg.conf.d/10-keyboard-layout.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: install X11 fonts with pacman
+  tags: xorg
+  pacman:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - artwiz-fonts
+    - cantarell-fonts
+    - font-bh-ttf
+    - font-bitstream-speedo
+    - fontconfig
+    - fontsproto
+    - freetype2
+    - gsfonts
+    - sdl_ttf
+    - ttf-bitstream-vera
+    - ttf-cheapskate
+    - ttf-dejavu
+    - ttf-freefont
+    - ttf-liberation
+    - ttf-ubuntu-font-family
+    - xorg-fonts-type1
+
+- name: install X11 cursor with pacman
+  tags: xorg
+  pacman:
+    name: xcursor-vanilla-dmz
+    state: present

@@ -1,0 +1,10 @@
+---
+- name: install git with pacman
+  tags: git
+  pacman:
+    name: "git"
+    state: present
+
+# git config --global user.name "Thomas LE ROUX"
+#   238  git config --global user.name "Thomas LE ROUX"
+#   239  git config --global user.email "thomas@november-eleven.fr"
