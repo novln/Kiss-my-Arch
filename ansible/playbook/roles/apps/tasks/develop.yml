@@ -1,0 +1,24 @@
+---
+- name: install nodejs with pacman
+  tags:
+    - develop
+    - nodejs
+  pacman:
+    name: "nodejs,npm"
+    state: present
+
+- name: install scala with pacman
+  tags:
+    - develop
+    - scala
+  pacman:
+    name: "jdk8-openjdk,jre8-openjdk,sbt,scala"
+    state: present
+
+- name: install go with pacman
+  tags:
+    - develop
+    - go
+  pacman:
+    name: "go"
+    state: present
