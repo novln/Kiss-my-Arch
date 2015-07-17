@@ -2,5 +2,5 @@
 - name: install wicd with pacman
   tags: wicd
   pacman:
-    name: "wicd,wicd-gtk"
+    name: "wicd"
     state: present
