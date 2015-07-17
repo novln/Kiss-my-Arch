@@ -14,7 +14,7 @@
 - name: install gtk engines
   tags: gtk
   pacman:
-    name: "gtk-engine-aurora,gtk-engine-murrine,gtk-engine-unico,gtk-engines"
+    name: "gtk-engine-aurora,gtk-engine-murrine,gtk-engines"
     state: present
 
 - name: install gtk packages
