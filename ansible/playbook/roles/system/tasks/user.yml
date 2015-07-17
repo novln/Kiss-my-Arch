@@ -5,7 +5,12 @@
     name: "{{ user_name }}"
     comment: "{{ user_comment }}"
     shell: /bin/bash
-    append: yes
     group: "{{ user_name }}"
-    groups: "log,audio,lp,storage,systemd-journal,users,wheel"
     password: "{{ user_password }}"
+
+- name: add user to default groups
+  tags: user
+  user:
+    name: "{{ user_name }}"
+    append: yes
+    groups: "log,audio,lp,storage,systemd-journal,users,wheel"
