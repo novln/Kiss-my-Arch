@@ -1,0 +1,6 @@
+---
+- name: install htop
+  tags: htop
+  pacman:
+    name: htop
+    state: present
