@@ -5,7 +5,6 @@
     name: "{{ user_name }}"
     comment: "{{ user_comment }}"
     shell: /bin/bash
-    group: "{{ user_name }}"
     password: "{{ user_password }}"
 
 - name: add user to default groups
