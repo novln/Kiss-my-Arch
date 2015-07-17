@@ -3,7 +3,16 @@
   tags: accounts
   copy:
     src: face.png
-    dest: "/var/lib/AccountsService/icons/{{ user_name }}"
+    dest: "/var/lib/AccountsService/icons/{{ user_name }}.png"
+    owner: root
+    group: root
+    mode: 0644
+
+- name: write user icons path for accounts service
+  tags: accounts
+  template:
+    src: face.png
+    dest: "/var/lib/AccountsService/icons/{{ user_name }}.png"
     owner: root
     group: root
     mode: 0644
@@ -11,6 +20,6 @@
 - name: symlink user face icons in home
   tags: accounts
   file:
-    src: "/var/lib/AccountsService/icons/{{ user_name }}"
+    src: "/var/lib/AccountsService/icons/{{ user_name }}.png"
     dest: "/home/{{ user_name }}/.face"
     state: link
