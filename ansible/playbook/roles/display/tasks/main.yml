@@ -5,3 +5,4 @@
 - include: lightdm.yml
 - include: xfce4.yml
 - include: accounts.yml
+- include: audio.yml
