@@ -11,8 +11,8 @@
 - name: write user icons path for accounts service
   tags: accounts
   template:
-    src: face.png
-    dest: "/var/lib/AccountsService/icons/{{ user_name }}.png"
+    src: accounts.j2
+    dest: "/var/lib/AccountsService/users/{{ user_name }}"
     owner: root
     group: root
     mode: 0644
