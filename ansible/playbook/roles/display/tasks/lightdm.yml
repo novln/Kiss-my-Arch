@@ -2,7 +2,7 @@
 - name: install lightdm
   tags: lightdm
   pacman:
-    name: "lightdm,lightdm-gtk3-greeter,accountsservice"
+    name: "lightdm,lightdm-gtk-greeter,accountsservice"
     state: present
 
 - name: enable lightdm at startup
