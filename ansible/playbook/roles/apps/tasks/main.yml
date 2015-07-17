@@ -1,4 +1,7 @@
 ---
 - include: virtualbox.yml
+- include: network.yml
 - include: media.yml
 - include: git.yml
+- include: develop.yml
+- include: docker.yml
