@@ -1,0 +1,6 @@
+---
+- name: install wicd-gtk with pacman
+  tags: wicd
+  pacman:
+    name: "wicd-gtk"
+    state: present
