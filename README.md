@@ -16,7 +16,7 @@ I've used Arch' since 2009 _(Oh my god, it's been a while...)_ and since I love 
 
 **Bootstrap** is a list of Arch Linux installers that I use for a fresh install. These configurations are available:
 
- * Dell XPS 13 9343 _(hardware)_
+ * Dell XPS 13 9333 _(hardware)_
  * Dell XPS 13 9640 _(hardware)_
  * VirtualBox _(software)_
 
