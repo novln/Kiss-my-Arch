@@ -1,0 +1,96 @@
+---
+- name: kill xfconfd daemon
+  tags: xfconf
+  command: "/usr/bin/killall xfconfd"
+
+- name: create xfconf directory
+  tags: xfconf
+  file:
+    path: "{{ xfconf_root_path }}"
+    state: directory
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    recurse: yes
+    mode: 0700
+
+- name: write xsettings configuration
+  tags: xfconf
+  template:
+    src: "xsettings.xml.j2"
+    dest: "{{ xfconf_xsettings_path }}"
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    mode: 0644
+
+- name: write xfwm4 configuration
+  tags: xfconf
+  template:
+    src: "xfwm4.xml.j2"
+    dest: "{{ xfconf_xfwm4_path }}"
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    mode: 0644
+
+- name: write xfce4-panel configuration
+  tags: xfconf
+  template:
+    src: "xfce4-panel.xml.j2"
+    dest: "{{ xfconf_xfce4_panel_path }}"
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    mode: 0644
+
+- name: write xfce4-panel configuration
+  tags: xfconf
+  template:
+    src: "xfce4-desktop.xml.j2"
+    dest: "{{ xfconf_xfce4_desktop_path }}"
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    mode: 0644
+
+- name: write xfce4-power-manager configuration
+  tags: xfconf
+  template:
+    src: "xfce4-power-manager.xml.j2"
+    dest: "{{ xfconf_xfce4_power_manager_path }}"
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    mode: 0644
+
+- name: write xfce4-session configuration
+  tags: xfconf
+  template:
+    src: "xfce4-session.xml.j2"
+    dest: "{{ xfconf_xfce4_session_path }}"
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    mode: 0644
+
+- name: write xfce4-keyboard-shortcuts configuration
+  tags: xfconf
+  template:
+    src: "xfce4-keyboard-shortcuts.xml.j2"
+    dest: "{{ xfconf_xfce4_keyboard_shortcuts_path }}"
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    mode: 0644
+
+- name: create xfce4-terminal directory
+  tags: xfconf
+  file:
+    path: "{{ xfce4_terminal_directory }}"
+    state: directory
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    recurse: yes
+    mode: 0700
+
+- name: write xfce4-terminal configuration
+  tags: xfconf
+  template:
+    src: "xfce4-terminalrc.j2"
+    dest: "{{ xfce4_terminal_path }}"
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    mode: 0644

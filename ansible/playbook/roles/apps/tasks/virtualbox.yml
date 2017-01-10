@@ -1,0 +1,53 @@
+---
+- name: install virtualbox for host
+  tags: virtualbox
+  pacman:
+    name: "virtualbox-host-modules-arch,virtualbox,qt4,net-tools"
+    state: present
+  when: ansible_virtualization_role == "host"
+
+- name: install virtualbox utils for guest
+  tags: virtualbox
+  pacman:
+    name: "virtualbox-guest-modules-arch,virtualbox-guest-utils"
+    state: present
+  when: ansible_virtualization_role == "guest"
+
+- name: enable virtualbox service for guest
+  tags: virtualbox
+  service:
+    name: vboxservice
+    enabled: yes
+  when: ansible_virtualization_role == "guest"
+
+- name: add user in vboxusers group
+  tags: virtualbox
+  user:
+    append: yes
+    name: "{{ user_name }}"
+    groups: vboxusers
+
+# - name: load virtualbox modules via modprobe
+#   tags: virtualbox
+#   modprobe:
+#     name: "{{ item }}"
+#     state: present
+#   with_items:
+#     - vboxdrv
+#     - vboxnetadp
+#     - vboxnetflt
+#     - vboxpci
+#
+# - name: enable virtualbox modules loading at startup
+#   tags: virtualbox
+#   copy:
+#     content: "{{ item }}"
+#     dest: "/etc/modules-load.d/{{ item }}.conf"
+#     owner: root
+#     group: root
+#     mode: 0644
+#   with_items:
+#     - vboxdrv
+#     - vboxnetadp
+#     - vboxnetflt
+#     - vboxpci

@@ -1,0 +1,30 @@
+---
+- name: install lightdm
+  tags: lightdm
+  pacman:
+    name: "lightdm,lightdm-gtk-greeter"
+    state: present
+
+- name: enable lightdm at startup
+  tags: lightdm
+  service:
+    name: lightdm
+    enabled: yes
+
+- name: write lightdm configuration
+  tags: lightdm
+  template:
+    src: lightdm.conf.j2
+    dest: /etc/lightdm/lightdm.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: write lightdm gdk greeter configuration
+  tags: lightdm
+  template:
+    src: lightdm-gtk-greeter.conf.j2
+    dest: /etc/lightdm/lightdm-gtk-greeter.conf
+    owner: root
+    group: root
+    mode: 0644

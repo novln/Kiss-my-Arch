@@ -1,0 +1,14 @@
+---
+- name: configure hostname
+  tags: hostname
+  hostname:
+    name: "{{ inventory_hostname }}"
+
+- name: write /etc/hosts
+  tags: hostname
+  template:
+    src: hosts.j2
+    dest: /etc/hosts
+    owner: root
+    group: root
+    mode: 0644

@@ -1,0 +1,23 @@
+---
+ssh_authorized_keys_path: .ssh/authorized_keys2
+ssh_symmetric_ciphers: "chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr"
+ssh_message_auth_code: "hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-ripemd160-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,hmac-ripemd160,umac-128@openssh.com"
+ssh_key_exchange_server: "curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256"
+ssh_key_exchange_client: "curve25519-sha256@libssh.org,ecdh-sha2-nistp521,ecdh-sha2-nistp256,ecdh-sha2-nistp384,diffie-hellman-group-exchange-sha256"
+ssh_rsa_key_size: 16384
+ssh_rsa_private_key_path: /etc/ssh/ssh_host_rsa_key
+ssh_rsa_public_key_path: /etc/ssh/ssh_host_rsa_key.pub
+ssh_moduli_file_path: /etc/ssh/moduli
+ssh_moduli_buffer_path: /etc/ssh/moduli-
+pacman_mirrorlist:
+  - http://mir.archlinux.fr/$repo/os/$arch
+  - http://delta.archlinux.fr/$repo/os/$arch
+  - http://mirrors.kernel.org/archlinux/$repo/os/$arch
+  - http://archlinux.mirrors.ovh.net/archlinux/$repo/os/$arch
+zsh_bin_path: "/bin/zsh"
+zsh_configuration_directory: "/home/{{ user_name }}/.zshrc.d"
+zsh_configuration_path: "/home/{{ user_name }}/.zshrc"
+zsh_profile_directory: "/home/{{ user_name }}/.zprofile.d"
+zsh_profile_path: "/home/{{ user_name }}/.zprofile"
+bash_bin_path: "/bin/bash"
+bash_configuration_path: "/root/.profile"

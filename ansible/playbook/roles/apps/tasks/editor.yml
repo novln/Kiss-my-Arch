@@ -1,0 +1,36 @@
+---
+- name: install atom with pacman
+  tags: atom
+  pacman:
+    name: "atom"
+    state: present
+
+- name: install atom packages
+  tags: atom
+  command: "apm install {{ item }}"
+  become: true
+  become_user: "{{ user_name }}"
+  with_items:
+    - monokai-seti
+    - Zen
+    - auto-detect-indentation
+    - fonts
+    - go-plus
+    - highlight-line
+    - highlight-selected
+    - language-docker
+    - language-lua
+    - linter-jsonlint
+    - pinned-tabs
+    - pretty-json
+    - set-syntax
+    - tab-control
+
+- name: configure atom
+  tags: atom
+  template:
+    src: "atom-config.cson.j2"
+    dest: "{{ atom_config_path }}"
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    mode: 0644

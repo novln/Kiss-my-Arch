@@ -1,0 +1,10 @@
+---
+- include: archlinux.yml
+- include: hostname.yml
+- include: time.yml
+- include: pacman.yml
+- include: bash.yml
+- include: zsh.yml
+- include: user.yml
+- include: kernel.yml
+- include: ssh.yml

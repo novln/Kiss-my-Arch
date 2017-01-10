@@ -1,0 +1,88 @@
+[alias]
+	a = add
+	br = branch
+	c = commit
+	am = commit --amend
+	cl = clone --recursive
+	s = status
+	pl = pull
+	plo = pull origin
+	ps = push
+	pso = push origin
+	sw = show
+
+	# Switch to a branch if exists, create it otherwise
+	co = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
+
+	# Show defined git alias
+	alias="!f() { git config -l | grep ^alias | cut -c 7- | sort; }; f"
+
+	# Short version of git log
+	l = "log --pretty=oneline -n 32 --graph --abbrev-commit"
+
+	# Short version of git log with more verbosity
+	ll = "log --graph --decorate --color --pretty=format:'%C(yellow)%h%C(reset) - %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+
+	# Graph version of git log
+	graph = log --graph --color --pretty=format:"%C(yellow)%H%C(green)%d%C(reset)%n%x20%cd%n%x20%cn%x20(%ce)%n%x20%s%n"
+
+	# Show the diff between the latest commit and the current state
+	d = "!f() { git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat; }; f"
+
+	# Show the diff between the state `$number` revisions ago and the current state
+	dn = "!f() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; f"
+
+	# Show verbose output about tags
+	tags = tag -l
+
+	# Show verbose output about branches
+	branches = branch -a
+
+	# Show verbose output about remotes
+	remotes = remote -v
+
+	# Find branches with commit
+	fbc = "!f() { git branch -a --contains $1; }; f"
+
+	# Find tags with commit
+	ftc = "!f() { git describe --always --contains $1; }; f"
+
+	# Find commits with change
+	fcc = "!f() { git log --pretty=format:'%C(yellow)%h	%Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short -S$1; }; f"
+
+	# Find commits with message
+	fcm = "!f() { git log --pretty=format:'%C(yellow)%h	%Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep=$1; }; f"
+
+	# Display changes from last release
+	unrelease = "!f() { git fetch --tags && git diff $(git tag | tail -n 1); }; f"
+
+	# Fetch remote branches, clean dead branches and update submodules
+	sync = "!f () { git fetch --all && git remote prune origin && git submodule update --init --recursive; }; f"
+
+[color "branch"]
+	current = blue bold
+	local = blue
+	remote = cyan
+
+[color "diff"]
+	frag = cyan bold   # line info
+	old = red          # deletions
+	new = green        # additions
+
+[color "status"]
+	added = green
+	changed = blue
+	untracked = red
+
+[user]
+	name = {{ git_user_name }}
+	email = {{ git_user_email }}
+
+[push]
+	default = {{ git_push_mode }}
+
+[github]
+	user = {{ git_user_github }}
+
+[bitbucket]
+	user = {{ git_user_bitbucket }}

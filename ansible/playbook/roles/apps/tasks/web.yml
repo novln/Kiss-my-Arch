@@ -1,0 +1,12 @@
+---
+- name: install firefox with pacman
+  tags: firefox
+  pacman:
+    name: "firefox,firefox-i18n-fr"
+    state: present
+
+- name: install thunderbird with pacman
+  tags: thunderbird
+  pacman:
+    name: "thunderbird,thunderbird-i18n-fr"
+    state: present

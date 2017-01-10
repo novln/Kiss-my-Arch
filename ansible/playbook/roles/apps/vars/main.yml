@@ -1,0 +1,13 @@
+---
+zsh_configuration_directory: "/home/{{ user_name }}/.zshrc.d"
+zsh_profile_directory: "/home/{{ user_name }}/.zprofile.d"
+atom_config_path: "/home/{{ user_name }}/.atom/config.cson"
+npm_root_directory: "/home/{{ user_name }}/.npm"
+npm_bin_directory: "{{ npm_root_directory }}/bin"
+npm_config_path: "/home/{{ user_name }}/.npmrc"
+go_path_directory: "/home/{{ user_name }}/go"
+go_bin_directory: "{{ go_path_directory }}/bin"
+go_pkg_directory: "{{ go_path_directory }}/pkg"
+go_src_directory: "{{ go_path_directory }}/src"
+git_configuration_path: "/home/{{ user_name }}/.gitconfig"
+git_push_mode: "matching"

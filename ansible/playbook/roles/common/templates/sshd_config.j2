@@ -1,0 +1,73 @@
+# This is the sshd server system-wide configuration file.  See
+# sshd_config(5) for more information.
+
+# This sshd was compiled with PATH=/usr/bin:/bin:/usr/sbin:/sbin
+
+# The strategy used for options in the default sshd_config shipped with
+# OpenSSH is to specify options with their default value where
+# possible, but leave them commented.  Uncommented options override the
+# default value.
+
+Port 22
+Protocol 2
+
+HostKey /etc/ssh/ssh_host_rsa_key
+
+UsePrivilegeSeparation sandbox
+
+# Lifetime and size of ephemeral version 1 server key
+KeyRegenerationInterval 3600
+ServerKeyBits 8192
+
+# Logging
+SyslogFacility AUTH
+LogLevel VERBOSE
+
+LoginGraceTime 120
+PermitRootLogin without-password
+StrictModes yes
+AllowGroups users
+MaxAuthTries 6
+
+RSAAuthentication yes
+PubkeyAuthentication yes
+AuthorizedKeysFile %h/{{ ssh_authorized_keys_path }}
+
+# Uncomment for hardenning
+#AuthenticationMethods publickey
+#PasswordAuthentication no
+
+IgnoreRhosts yes
+RhostsRSAAuthentication no
+HostbasedAuthentication no
+
+PermitEmptyPasswords no
+ChallengeResponseAuthentication no
+
+KerberosAuthentication no
+GSSAPIAuthentication no
+
+X11Forwarding no
+X11DisplayOffset 10
+PrintMotd no
+PrintLastLog no
+TCPKeepAlive yes
+PermitTTY yes
+UseLogin no
+AllowAgentForwarding yes
+AllowTcpForwarding yes
+GatewayPorts no
+PermitUserEnvironment no
+Compression delayed
+PermitTunnel no
+ChrootDirectory none
+VersionAddendum none
+
+Subsystem sftp /usr/lib/openssh/sftp-server
+
+UsePAM no
+UseDNS no
+
+Ciphers {{ ssh_symmetric_ciphers }}
+MACs {{ ssh_message_auth_code }}
+KexAlgorithms {{ ssh_key_exchange_server }}

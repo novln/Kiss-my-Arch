@@ -1,0 +1,14 @@
+---
+- name: install system-config-printer
+  tags: printer
+  pacman:
+    name: "system-config-printer"
+    state: present
+
+- name: install gtk3-print-backends
+  tags: printer
+  pacman:
+    name: "gtk3-print-backends"
+    state: present
+
+# TODO: Add cups

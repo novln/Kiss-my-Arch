@@ -1,0 +1,6 @@
+#
+# ~/.zprofile.d/srandom.zsh
+#
+
+# generate a secure random on 32 bytes.
+alias srandom='cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 50 | head -n 1 | sha256sum | cut -f1 -d" "'

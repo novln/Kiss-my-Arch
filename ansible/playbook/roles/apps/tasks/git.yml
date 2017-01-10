@@ -1,0 +1,24 @@
+---
+- name: install git with pacman
+  tags: git
+  pacman:
+    name: "git"
+    state: present
+
+- name: configure gitconfig
+  tags: git
+  template:
+    src: gitconfig.j2
+    dest: "{{ git_configuration_path }}"
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    mode: 0644
+
+- name: configure git for zsh
+  tags: git
+  template:
+    src: "zshrc.d/git.zsh.j2"
+    dest: "{{ zsh_configuration_directory }}/git.zsh"
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    mode: 0644

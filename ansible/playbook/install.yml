@@ -1,0 +1,4 @@
+---
+- include: common.yml
+- include: display.yml
+- include: user.yml

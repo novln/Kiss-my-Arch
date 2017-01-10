@@ -1,0 +1,7 @@
+##
+## Arch Linux repository mirrorlist
+##
+
+{% for server in pacman_mirrorlist %}
+Server = {{ server }}
+{% endfor %}

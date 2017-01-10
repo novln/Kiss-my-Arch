@@ -1,0 +1,10 @@
+---
+- include: virtualbox.yml
+- include: media.yml
+- include: graphics.yml
+- include: web.yml
+- include: git.yml
+- include: develop.yml
+- include: docker.yml
+- include: editor.yml
+- include: printer.yml

@@ -1,0 +1,138 @@
+---
+- name: install nodejs with pacman
+  tags:
+    - develop
+    - nodejs
+  pacman:
+    name: "nodejs,npm"
+    state: present
+
+- name: create npm root directory
+  tags:
+    - develop
+    - nodejs
+  file:
+    path: "{{ npm_root_directory }}"
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    state: directory
+    mode: 0744
+
+- name: configure npm
+  tags:
+    - develop
+    - nodejs
+  template:
+    src: "npmrc.j2"
+    dest: "{{ npm_config_path }}"
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    mode: 0644
+
+- name: configure npm for zsh
+  tags:
+    - develop
+    - nodejs
+  template:
+    src: "zprofile.d/npm.zsh.j2"
+    dest: "{{ zsh_profile_directory }}/npm.zsh"
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    mode: 0644
+
+- name: install packages with npm
+  tags:
+    - develop
+    - nodejs
+  npm:
+    name: "{{ item }}"
+    global: yes
+  become: true
+  become_user: "{{ user_name }}"
+  with_items:
+    - gulp
+    - nsp
+    - npm-check
+    - pen
+
+- name: install scala with pacman
+  tags:
+    - develop
+    - scala
+  pacman:
+    name: "jdk8-openjdk,jre8-openjdk,sbt,scala"
+    state: present
+
+- name: install go with pacman
+  tags:
+    - develop
+    - go
+  pacman:
+    name: "go"
+    state: present
+
+- name: create go path directory
+  tags:
+    - develop
+    - go
+  file:
+    path: "{{ go_path_directory }}"
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    state: directory
+    mode: 0744
+
+- name: create go directories
+  tags:
+    - develop
+    - go
+  file:
+    path: "{{ item }}"
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    state: directory
+    mode: 0744
+  with_items:
+    - "{{ go_bin_directory }}"
+    - "{{ go_pkg_directory }}"
+    - "{{ go_src_directory }}"
+
+- name: configure go for zsh
+  tags:
+    - develop
+    - go
+  template:
+    src: "zprofile.d/go.zsh.j2"
+    dest: "{{ zsh_profile_directory }}/go.zsh"
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    mode: 0644
+
+- name: install packages with go
+  tags:
+    - develop
+    - go
+  command: "{{ item }}"
+  become: true
+  become_user: "{{ user_name }}"
+  environment:
+    - GOPATH: "{{ go_path_directory }}"
+    - PATH: "{{ go_bin_directory }}:{{ ansible_env.PATH }}"
+  with_items:
+    - "go get golang.org/x/tools/cmd/godoc"
+    - "go get golang.org/x/tools/cmd/gorename"
+    - "go get golang.org/x/tools/cmd/cover"
+    - "go get github.com/rakyll/hey"
+    - "go get github.com/nsf/gocode"
+    - "go get github.com/alecthomas/gometalinter"
+    - "go get github.com/divan/gofresh"
+    - "go get github.com/aktau/github-release"
+    - "gometalinter --install"
+
+- name: install rust with pacman
+  tags:
+    - develop
+    - rust
+  pacman:
+    name: "rust,cargo"
+    state: present

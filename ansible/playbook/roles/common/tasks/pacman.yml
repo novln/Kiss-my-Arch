@@ -1,0 +1,47 @@
+---
+- name: update pacman mirrorlist
+  tags: pacman
+  template:
+    src: mirrorlist.j2
+    dest: /etc/pacman.d/mirrorlist
+    owner: root
+    group: root
+    mode: 0644
+
+- name: write pacman configuration
+  tags: pacman
+  copy:
+    src: pacman.conf
+    dest: /etc/pacman.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: update pacman database
+  tags: pacman
+  pacman:
+    update_cache: yes
+    state: present
+
+- name: upgrade packages
+  tags: pacman
+  pacman:
+    upgrade: yes
+    update_cache: yes
+
+- name: install required packages
+  tags: pacman
+  pacman:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - wget
+    - curl
+    - rsync
+    - htop
+    - gnu-netcat
+    - openssh
+    - openssl
+    - python2
+    - bash-completion
+    - bind-tools

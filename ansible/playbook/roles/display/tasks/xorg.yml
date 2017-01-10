@@ -1,0 +1,77 @@
+---
+- name: install Xorg
+  tags: xorg
+  pacman:
+    name: "xorg-server,xorg-xinit,xorg-server-utils"
+    state: present
+  register: xorg_install
+
+- name: install Xorg input drivers
+  tags: xorg
+  pacman:
+    name: "xf86-input-libinput,xf86-input-mouse,xf86-input-keyboard"
+    state: present
+
+- name: install Xorg video drivers
+  tags: xorg
+  pacman:
+    name: "xf86-video-intel,xf86-video-vesa"
+    state: present
+
+- name: write keyboard configuration for Xorg
+  tags: xorg
+  template:
+    src: "keyboard-layout.conf.j2"
+    dest: "{{ xorg_keyboard_conf_path }}"
+    owner: root
+    group: root
+    mode: 0644
+
+- name: install X11 fonts with pacman
+  tags: xorg
+  pacman:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - artwiz-fonts
+    - cantarell-fonts
+    - font-bh-ttf
+    - font-bitstream-speedo
+    - fontconfig
+    - fontsproto
+    - freetype2
+    - gsfonts
+    - sdl_ttf
+    - ttf-bitstream-vera
+    - ttf-cheapskate
+    - ttf-dejavu
+    - ttf-freefont
+    - ttf-hack
+    - ttf-croscore
+    - ttf-sazanami
+    - ttf-hannom
+    - ttf-droid
+    - ttf-fira-mono
+    - ttf-fira-sans
+    - otf-ipafont
+    - ttf-hanazono
+    - ttf-baekmuk
+    - noto-fonts-cjk
+    - noto-fonts-emoji
+    - adobe-source-code-pro-fonts
+    - adobe-source-han-sans-otc-fonts
+    - adobe-source-han-sans-kr-fonts
+    - adobe-source-han-sans-jp-fonts
+    - adobe-source-han-sans-cn-fonts
+    - adobe-source-han-sans-tw-fonts
+    - ttf-arphic-ukai
+    - ttf-arphic-uming
+    - opendesktop-fonts
+    - wqy-microhei
+    - wqy-zenhei
+    - wqy-bitmapfont
+    - ttf-liberation
+    - ttf-ubuntu-font-family
+    - xorg-fonts-type1
+    - font-mathematica
+    - ttf-symbola

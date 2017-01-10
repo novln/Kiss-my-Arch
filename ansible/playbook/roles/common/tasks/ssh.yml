@@ -1,0 +1,40 @@
+---
+- name: write sshd configuration
+  tags: ssh
+  template:
+    src: "sshd_config.j2"
+    dest: "/etc/ssh/sshd_config"
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart sshd
+
+- name: write ssh configuration
+  tags: ssh
+  template:
+    src: "ssh_config.j2"
+    dest: "/etc/ssh/ssh_config"
+    owner: root
+    group: root
+    mode: 0644
+
+- name: remove previous rsa keys for sshd
+  tags: ssh
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - "{{ ssh_rsa_private_key_path }}"
+    - "{{ ssh_rsa_public_key_path }}"
+
+- name: generate new rsa keys for sshd
+  tags: ssh
+  shell: "ssh-keygen -q -t rsa -b {{ ssh_rsa_key_size }} -N '' -f {{ ssh_rsa_private_key_path }}"
+
+- name: remove any lines with a weak key length
+  tags: ssh
+  shell: "awk '$5 > 4000' {{ ssh_moduli_file_path }} > {{ ssh_moduli_buffer_path }}"
+
+- name: apply previous filter on file
+  tags: ssh
+  command: "mv {{ ssh_moduli_buffer_path }} {{ ssh_moduli_file_path }}"

@@ -1,0 +1,81 @@
+---
+- name: install xfce4
+  tags: xfce4
+  pacman:
+    name: "xfce4"
+    state: present
+
+- name: install gtk-xfce engines
+  tags: xfce4
+  pacman:
+    name: "gtk-xfce-engine"
+    state: present
+
+- name: install xfce4-notifyd
+  tags: xfce4
+  pacman:
+    name: "xfce4-notifyd"
+    state: present
+
+- name: install thunar plugins
+  tags: xfce4
+  pacman:
+    name: "thunar-archive-plugin,thunar-media-tags-plugin"
+    state: present
+
+- name: install xfce4 goodies
+  tags: xfce4
+  pacman:
+    name: "xfce4-battery-plugin,xfce4-screenshooter"
+    state: present
+
+- name: install thunar utils
+  tags: xfce4
+  pacman:
+    name: "file-roller,gvfs,catfish"
+    state: present
+
+- name: install gnome utils
+  tags: xfce4
+  pacman:
+    name: "gnome-disk-utility,gnome-system-monitor,gnome-calculator,alacarte"
+    state: present
+
+- name: install network-manager applet
+  tags: xfce4
+  pacman:
+    name: "network-manager-applet"
+    state: present
+
+- name: write xflock4 script
+  tags: xfce4
+  template:
+    src: "xflock4.j2"
+    dest: "{{ xflock4_path }}"
+    owner: root
+    group: root
+    mode: 0755
+
+- name: create cache directory
+  tags: xfce4
+  file:
+    path: "{{ user_cache_path }}"
+    state: directory
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    mode: 0744
+
+- name: delete xfce4 sessions
+  tags: xfce4
+  file:
+    path: "{{ xfce4_session_path }}"
+    state: absent
+
+- name: disable xfce4 sessions
+  tags: xfce4
+  file:
+    path: "{{ xfce4_session_path }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0744

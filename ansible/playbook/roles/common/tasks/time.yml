@@ -1,0 +1,18 @@
+---
+- name: symlink /etc/localtime
+  tags: time
+  file:
+    src: "/usr/share/zoneinfo/{{ localtime }}"
+    dest: "/etc/localtime"
+    owner: root
+    group: root
+    mode: 0644
+    state: link
+
+- name: configure hardware clock
+  tags: time
+  command: "hwclock --systohc --utc"
+
+- name: enable ntp on system clock
+  tags: time
+  command: "timedatectl set-ntp true"

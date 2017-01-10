@@ -1,0 +1,30 @@
+---
+- name: install gtk3
+  tags: gtk
+  pacman:
+    name: "gtk3"
+    state: present
+
+- name: install gtk2
+  tags: gtk
+  pacman:
+    name: "gtk2"
+    state: present
+
+- name: install gtk engines
+  tags: gtk
+  pacman:
+    name: "gtk-engine-aurora,gtk-engine-murrine,gtk-engines"
+    state: present
+
+- name: install gtk packages
+  tags: gtk
+  pacman:
+    name: "pygtk,webkitgtk2,gnome-common,gnome-doc-utils"
+    state: present
+
+- name: install gtk themes
+  tags: gtk
+  pacman:
+    name: "gnome-icon-theme,gnome-icon-theme-extras,gnome-icon-theme-symbolic,gnome-themes-standard"
+    state: present

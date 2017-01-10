@@ -1,0 +1,66 @@
+---
+- name: install vanilla cursor themes
+  tags: cursor
+  pacman:
+    name: xcursor-vanilla-dmz
+    state: present
+
+- name: update default cursor themes
+  tags: cursor
+  file:
+    src: "/usr/share/icons/{{ xorg_cursor_theme }}/cursors"
+    dest: "/usr/share/icons/default/cursors"
+    owner: root
+    group: root
+    mode: 0644
+    state: link
+
+- name: install faenza icon themes
+  tags: icon
+  pacman:
+    name: "faenza-icon-theme"
+    state: present
+
+- name: download faenza-eleven icon themes
+  tags: icon
+  get_url:
+    url: "{{ faenza_eleven_url }}"
+    dest: "{{ faenza_eleven_path }}"
+    checksum: "sha256:{{ faenza_eleven_sha256 }}"
+
+- name: install faenza-eleven icon themes
+  tags: icon
+  command: "pacman --noconfirm --noprogressbar --needed -U '{{ faenza_eleven_path }}'"
+
+- name: download autumn-leaves wallpaper themes
+  tags: wallpaper
+  get_url:
+    url: "{{ autumn_leaves_url }}"
+    dest: "{{ autumn_leaves_path }}"
+    checksum: "sha256:{{ autumn_leaves_sha256 }}"
+
+- name: install autumn-leaves wallpaper themes
+  tags: wallpaper
+  command: "pacman --noconfirm --noprogressbar --needed -U '{{ autumn_leaves_path }}'"
+
+- name: download cookie wallpaper themes
+  tags: wallpaper
+  get_url:
+    url: "{{ cookie_wallpapers_url }}"
+    dest: "{{ cookie_wallpapers_path }}"
+    checksum: "sha256:{{ cookie_wallpapers_sha256 }}"
+
+- name: install cookie wallpaper themes
+  tags: wallpaper
+  command: "pacman --noconfirm --noprogressbar --needed -U '{{ cookie_wallpapers_path }}'"
+
+- name: download Vertex gtk themes
+  tags: gtk
+  get_url:
+    url: "{{ vertex_url }}"
+    dest: "{{ vertex_path }}"
+    checksum: "sha256:{{ vertex_sha256 }}"
+
+- name: install Vertex gtk themes
+  tags: gtk
+  command: "pacman --noconfirm --noprogressbar --needed -U '{{ vertex_path }}'"

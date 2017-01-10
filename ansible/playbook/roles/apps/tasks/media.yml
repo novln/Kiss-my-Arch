@@ -1,0 +1,18 @@
+---
+- name: install vlc with pacman
+  tags: vlc
+  pacman:
+    name: "vlc,twolame,qt4"
+    state: present
+
+- name: install zip with pacman
+  tags: zip
+  pacman:
+    name: "zip,unzip"
+    state: present
+
+- name: install 7zip with pacman
+  tags: 7zip
+  pacman:
+    name: "p7zip"
+    state: present

@@ -1,0 +1,11 @@
+#
+# ~/.zprofile
+#
+# Author: Thomas LE ROUX <thomas@november-eleven.fr>
+#
+
+if [ -d ${HOME}/.zprofile.d ]; then
+  for file in `find $HOME/.zprofile.d/ -name "*.zsh" -type f`; do
+    source ${file}
+  done
+fi

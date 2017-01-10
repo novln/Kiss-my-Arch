@@ -1,0 +1,117 @@
+#
+# ~/.zshrc
+#
+# Author: Thomas LE ROUX <thomas@november-eleven.fr>
+#
+
+#########################################################################################
+#                                                                                       #
+#                                       Settings                                        #
+#                                                                                       #
+#########################################################################################
+
+# History
+
+HISTFILE=~/.zsh_history
+HISTSIZE=1000
+SAVEHIST=100000
+
+setopt append_history       # do not overwrite history
+setopt inc_append_history   # write after each command
+setopt share_history        # share history between multiple shell sessions
+setopt hist_reduce_blanks   # remove superfluous blanks from history
+setopt hist_ignore_space    # do not store a command in history if it begins with a space
+setopt hist_no_store        # do not store the `history` command
+setopt hist_ignore_dups     # avoid duplicate command lines in history
+setopt hist_no_functions    # remove function definition from history
+
+# Filesystem
+
+setopt auto_cd              # change directory without cd
+setopt auto_pushd           # push previous state onto the directory stack
+setopt pushdminus           # revert to directory stack is negative (ie: cd -2)
+
+alias -g ...='../..'
+alias -g ....='../../..'
+alias -g .....='../../../..'
+alias -g ......='../../../../..'
+alias -- -='cd -'
+
+# Autocompletion
+
+zstyle :compinstall filename '/home/thomas/.zshrc'
+
+autoload -Uz compinit && compinit
+autoload -Uz bashcompinit && bashcompinit
+
+zstyle ':completion:*' rehash true
+zstyle ':completion:*' menu select
+
+setopt auto_remove_slash    # autoremove slash when not needed
+setopt auto_param_slash     # automatically append a slash after a directory
+unsetopt complete_in_word   # complete at the end of a word even if the cursor is not after the last character
+unsetopt beep               # disable annoying beep
+unsetopt nomatch            # disable errors if a pattern has no matches
+
+# Prompt
+
+autoload -Uz promptinit && promptinit
+autoload -Uz prompt_special_chars && prompt_special_chars
+autoload -Uz colors && colors
+
+setopt prompt_subst
+
+# Hook redraw prompt event on terminal resize
+TRAPWINCH () {
+    render_prompt
+}
+
+#########################################################################################
+#                                                                                       #
+#                                       Commands                                        #
+#                                                                                       #
+#########################################################################################
+
+# ls
+
+alias ls='ls -pFH --color --group-directories-first'
+alias l='ls -hl' ; compdef l=ls
+alias ll='l' ; compdef ll=ls
+alias la='ll -A' ; compdef la=ls
+
+# grep
+
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+# du
+alias du='du -h'
+
+# diff
+alias diff='diff --color=auto -Nuar'
+
+#########################################################################################
+#                                                                                       #
+#                                        Plugins                                        #
+#                                                                                       #
+#########################################################################################
+
+# enable zsh syntax highlighting. (zsh-syntax-highlighting)
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# enable "command not found" hook. (pkgfile)
+source /usr/share/doc/pkgfile/command-not-found.zsh
+
+# enable configuration of $PATH with zsh plugins.
+typeset -U path
+
+if [ -r ${HOME}/.zprofile ]; then
+  source ${HOME}/.zprofile
+fi
+
+if [ -d ${HOME}/.zshrc.d ]; then
+  for file in `find $HOME/.zshrc.d/ -name "*.zsh" -type f`; do
+    source ${file}
+  done
+fi

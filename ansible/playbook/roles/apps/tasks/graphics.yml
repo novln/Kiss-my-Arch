@@ -1,0 +1,18 @@
+---
+- name: install inkscape with pacman
+  tags: inkscape
+  pacman:
+    name: "inkscape"
+    state: present
+
+- name: install gimp with pacman
+  tags: gimp
+  pacman:
+    name: "gimp"
+    state: present
+
+- name: install evince with pacman
+  tags: evince
+  pacman:
+    name: "evince"
+    state: present

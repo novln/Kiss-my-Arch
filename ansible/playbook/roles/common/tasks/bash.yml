@@ -1,0 +1,9 @@
+---
+- name: write bashrc configuration file
+  tags: bash
+  template:
+    src: bashrc.j2
+    dest: "{{ bash_configuration_path }}"
+    owner: "root"
+    group: "root"
+    mode: 0644

@@ -1,0 +1,24 @@
+#
+# ~/.bashrc
+#
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+export PS1="\[$(tput bold)\]\[\033[48;5;1m\] \u@\h \[$(tput sgr0)\] \w\n➤ "
+
+HISTSIZE=1000
+HISTFILESIZE=2000
+
+alias ls='ls -pFH --color --group-directories-first'
+alias l='ls -hl'
+alias ll='l'
+alias la='ll -A'
+
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+alias du='du -h'
+
+alias diff='diff --color=auto -Nuar'

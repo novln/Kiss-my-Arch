@@ -1,0 +1,5 @@
+---
+- name: verify machine operating system
+  fail:
+    msg: "An Archlinux distribution is required..."
+  when: ansible_distribution != "Archlinux"

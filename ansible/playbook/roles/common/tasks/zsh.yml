@@ -1,0 +1,83 @@
+---
+- name: install zsh with pacman
+  tags: zsh
+  pacman:
+    name: "zsh"
+    state: present
+
+- name: install zsh plugins with pacman
+  tags: zsh
+  pacman:
+    name: "zsh-syntax-highlighting,pkgfile"
+    state: present
+  register: zsh_plugins
+
+- name: update pkgfile database
+  tags: zsh
+  command: pkgfile --update
+
+- name: enable pkgfile-update timer
+  tags: zsh
+  service:
+    name: pkgfile-update.timer
+    enabled: yes
+
+- name: create zprofile.d directory
+  tags: zsh
+  file:
+    path: "{{ zsh_profile_directory }}"
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    state: directory
+    mode: 0755
+
+- name: write zshrc configuration file
+  tags: zsh
+  template:
+    src: zprofile.j2
+    dest: "{{ zsh_profile_path }}"
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    mode: 0644
+
+- name: create zshrc.d directory
+  tags: zsh
+  file:
+    path: "{{ zsh_configuration_directory }}"
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    state: directory
+    mode: 0755
+
+- name: write zshrc configuration file
+  tags: zsh
+  template:
+    src: zshrc.j2
+    dest: "{{ zsh_configuration_path }}"
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    mode: 0644
+
+- name: write zshrc.d configuration files
+  tags: zsh
+  template:
+    src: zshrc.d/{{ item }}.j2
+    dest: "{{ zsh_configuration_directory }}/{{ item }}"
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    mode: 0644
+  with_items:
+    - "prompt.zsh"
+    - "keyboards.zsh"
+
+- name: write zprofile.d configuration files
+  tags: zsh
+  template:
+    src: zprofile.d/{{ item }}.j2
+    dest: "{{ zsh_profile_directory }}/{{ item }}"
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    mode: 0644
+  with_items:
+    - "srandom.zsh"
+    - "ip.zsh"

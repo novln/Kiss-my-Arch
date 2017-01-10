@@ -1,0 +1,133 @@
+#
+# ~/.zshrc.d/prompt.zsh
+#
+
+PANCAKE_SYMBOL="➤"
+PANCAKE_COLOR="blue"
+PANCAKE_GIT_REMOTE_COLOR="yellow"
+PANCAKE_GIT_UNPULLED_SYMBOL="⇣"
+PANCAKE_GIT_UNPUSHED_SYMBOL="⇡"
+PANCAKE_GIT_CLEAN_SYMBOL="✔"
+PANCAKE_GIT_CLEAN_COLOR="green"
+PANCAKE_GIT_DIRTY_SYMBOL="✘"
+PANCAKE_GIT_DIRTY_COLOR="red"
+
+function pancake_status() {
+    local color="%(?.%F{green}.%F{red})"
+    local reset="%f "
+    local symbol="%B${PANCAKE_SYMBOL}%b"
+    echo -n "${color}${symbol}${reset}"
+}
+
+function pancake_newline() {
+    echo -n "$prompt_newline"
+}
+
+function pancake_header() {
+    local color="${PANCAKE_COLOR}"
+    echo "$(pancake_left_fade $color)$(pancake_username $color)$(pancake_right_fade $color) $(pancake_directory $color)"
+}
+
+function pancake_left_fade() {
+    declare color="$1"
+    echo "%F{$color}%B%K{$color}$schars[333]$schars[262]$schars[261]$schars[260]%k%b%f"
+}
+
+function pancake_right_fade() {
+    declare color="$1"
+    echo "%F{$color}%K{black}$schars[333]$schars[262]$schars[261]$schars[260]%k%f"
+}
+
+function pancake_directory() {
+    declare color="$1"
+
+    local max_length=65
+    local header="%F{$color}"
+    local footer="%f"
+    local fullpath="%~"
+    local shortpath="%-2~ ... %3~"
+
+    if [[ $(pwd | wc -c) -gt ${max_length} ]]; then
+        echo "${header}${shortpath}${footer}"
+    else
+        echo "${header}${fullpath}${footer}"
+    fi
+
+}
+
+function pancake_username() {
+    declare color="$1"
+
+    local header="%F{white}%K{$color}%B"
+    local footer="%f%k%b"
+    local username="%n"
+    local host="%m"
+
+    if [[ "$SSH_CONNECTION" != '' ]]; then
+        echo "${header}${username}@${host}${footer}"
+    else
+        echo "${header}${username}${footer}"
+    fi
+
+}
+
+function pancake_git_branch() {
+
+  branch=$(git symbolic-ref --short HEAD 2> /dev/null) || branch=$(git rev-parse --short HEAD 2> /dev/null) || return
+
+  local header="%B"
+  local footer="%b"
+
+  echo "${header}${branch}${footer}"
+
+}
+
+function pancake_git_status() {
+
+    local clean="%F{$PANCAKE_GIT_CLEAN_COLOR}${PANCAKE_GIT_CLEAN_SYMBOL}%f"
+    local dirty="%F{$PANCAKE_GIT_DIRTY_COLOR}${PANCAKE_GIT_DIRTY_SYMBOL}%f"
+
+    if [[ -z "$(command git status --porcelain --ignore-submodules -unormal)" ]]; then
+        echo "${clean}"
+    else
+        echo "${dirty}"
+    fi
+
+}
+
+function pancake_git_remote_check() {
+
+    local local_commit=$(git rev-parse "@" 2>&1)
+    local remote_commit=$(git rev-parse "@{u}" 2>&1)
+    local common_base=$(git merge-base "@" "@{u}" 2>&1)
+    local header="%F{$PANCAKE_GIT_REMOTE_COLOR}"
+    local footer="%f"
+    local unpulled="${PANCAKE_GIT_UNPULLED_SYMBOL}"
+    local unpushed="${PANCAKE_GIT_UNPUSHED_SYMBOL}"
+
+    if [[ $local_commit == $remote_commit ]]; then
+        echo ""
+    else
+        if [[ $common_base == $remote_commit ]]; then
+            echo "${header}${unpushed}${footer}"
+        elif [[ $common_base == $local_commit ]]; then
+            echo "${header}${unpulled}${footer}"
+        else
+            echo "${header}${unpushed} ${unpulled}${footer}"
+        fi
+    fi
+
+}
+
+function pancake_git_info() {
+    if git rev-parse --git-dir > /dev/null 2>&1; then
+        echo "$(pancake_git_branch) $(pancake_git_status) $(pancake_git_remote_check)"
+    fi
+}
+
+function render_prompt() {
+    PROMPT='$(pancake_header)$(pancake_newline)$(pancake_status)'
+    RPROMPT='%{$(echotc UP 1)%}$(pancake_git_info)%{$(echotc DO 1)%}'
+}
+
+render_prompt

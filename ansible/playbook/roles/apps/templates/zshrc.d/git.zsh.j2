@@ -1,0 +1,15 @@
+#
+# ~/.zshrc.d/git
+#
+
+git_wrapper()
+{
+  if (( $# == 0 )) ; then
+    command git status -sb
+  else
+    command git "$@"
+  fi
+}
+
+alias g='noglob git_wrapper' ; compdef g=git
+alias git='noglob git_wrapper'

@@ -1,0 +1,30 @@
+---
+- name: install alsa-utils
+  tags: audio
+  pacman:
+    name: "alsa-utils"
+    state: present
+
+- name: install pulseaudio
+  tags: audio
+  pacman:
+    name: "pulseaudio,pulseaudio-alsa"
+    state: present
+
+- name: install gstreamer
+  tags: audio
+  pacman:
+    name: "gstreamer0.10-good-plugins"
+    state: present
+
+- name: install ffmpeg
+  tags: audio
+  pacman:
+    name: "ffmpeg,ffmpegthumbnailer"
+    state: present
+
+- name: install pavucontrol
+  tags: audio
+  pacman:
+    name: "pavucontrol"
+    state: present
