@@ -5,7 +5,7 @@
 * A bootstrap follow the **[Official Guide](https://wiki.archlinux.org/index.php/Installation_guide)**.
 
 * A bootstrap is composed of three files:
-	* A `bootstrap` script which set up the target from the guest system.
+	* A `bootstrap` script which set up the target from the ArchISO system.
 	* A `configure` script which set up the target from the chroot system.
 	* An `installer` script which download, verify and execute the previous files.
 
@@ -54,3 +54,25 @@
 * **Dell XPS 13 9343** -> _xps13-9343-install_
 * **Dell XPS 13 9640** -> _xps13-9640-install_
 * **Virtual Box** -> _vbox-install_
+
+## Example
+
+**On ArchISO system:**
+
+```
+loadkeys fr
+systemctl start sshd
+passwd
+ip a show
+```
+
+**On Other system:**
+
+```
+ssh root@192.168.0.32
+
+wget https://raw.githubusercontent.com/november-eleven/Kiss-my-Arch/master/bootstrap/vbox-install/installer -O vbox
+less vbox
+chmod u+x vbox
+./vbox
+```
