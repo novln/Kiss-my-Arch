@@ -28,6 +28,14 @@ Once you had a minimal operating system following the **[Official Guide](https:/
 
 I use **Ansible** for this purpose and everything I need for a perfect Arch Linux experience is defined as playbook.
 
+For a straightforward installation, configure your `hosts` file using `hosts.example` as a template and execute:
+
+```
+$ ansible-playbook playbook/install.yml
+```
+
+:sparkles: **Magic!** :sparkles:
+
 ## Online resources
 
 > `elinks https://november-eleven.github.io/Kiss-my-Arch/`
