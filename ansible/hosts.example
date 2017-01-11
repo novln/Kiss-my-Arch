@@ -1,2 +1,2 @@
 [home]
-archlinux ansible_ssh_host=192.168.1.10 ansible_ssh_user=thomas ansible_ssh_pass=0000 ansible_become_pass=0000 ansible_python_interpreter=/usr/bin/python2.7
+archlinux ansible_ssh_host=192.168.1.10 ansible_ssh_user=thomas ansible_ssh_pass=0000 ansible_become_pass=0000 ansible_python_interpreter=/usr/bin/python2.7 ssh_key_passphrase='1234'

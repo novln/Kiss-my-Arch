@@ -22,3 +22,20 @@
     owner: "{{ user_name }}"
     group: "{{ user_name }}"
     mode: 0644
+
+- name: create ssh directory
+  tags: git
+  file:
+    path: "{{ ssh_directory }}"
+    state: directory
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    mode: 0700
+
+- name: generate new rsa keys for user
+  tags: git
+  shell: "ssh-keygen -q -t rsa -b {{ ssh_key_size }} -N '{{ ssh_key_passphrase | default('') }}' -f {{ ssh_key_path }}"
+  args:
+    creates: "{{ ssh_key_path }}"
+  become: true
+  become_user: "{{ user_name }}"
