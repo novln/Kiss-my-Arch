@@ -1,0 +1,35 @@
+#!/bin/bash
+
+function execute_download() {
+  declare file_url="$1" file_sha256sum="$2" file_path="$3"
+
+  echo "[installer] download ${file_url}"
+  wget "${file_url}" -O "${file_path}" || exit 255s
+  chmod +x "${file_path}" || exit 255
+
+  echo "${file_sha256sum} ${file_path}" | sha256sum -c - >/dev/null 2>&1
+  if [[ $? -ne 0 ]]; then
+    echo >&2 "Checksum verification failed for ${file_path}."
+    exit 255
+  fi
+
+}
+
+execute_download \
+  'https://raw.githubusercontent.com/november-eleven/Kiss-my-Arch/master/bootstrap/xps13-9640-install/bootstrap' \
+  '88f629b112123d45161248c7c72367627813ae9d2e09bc2efc36a163fe107d51' \
+  '/usr/local/sbin/arch-bootstrap'
+
+execute_download \
+  'https://raw.githubusercontent.com/november-eleven/Kiss-my-Arch/master/bootstrap/xps13-9640-install/configure' \
+  '4645c1df22bc00d1443ed6b68955c635d6d2f4bc68f3d153b519887f8dd872d5' \
+  '/usr/local/sbin/arch-configure'
+
+timedatectl set-ntp true
+
+/usr/local/sbin/arch-bootstrap
+if [[ $? -ne 0 ]]; then
+  exit 254
+fi
+
+exit 0
