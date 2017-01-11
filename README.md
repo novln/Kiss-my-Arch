@@ -36,6 +36,8 @@ $ ansible-playbook playbook/install.yml
 
 :sparkles: **Magic!** :sparkles:
 
+> **NOTE:** Don't hesitate to edit the configuration file located at `ansible/playbook/conf/common.yml`
+
 ## Online resources
 
 > `elinks https://november-eleven.github.io/Kiss-my-Arch/`
