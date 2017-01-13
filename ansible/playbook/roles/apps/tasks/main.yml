@@ -4,6 +4,8 @@
 - include: graphics.yml
 - include: web.yml
 - include: git.yml
+- include: gpg.yml
+- include: ssh.yml
 - include: develop.yml
 - include: docker.yml
 - include: editor.yml

@@ -75,6 +75,12 @@
 [user]
 	name = {{ git_user_name }}
 	email = {{ git_user_email }}
+{% if gpg_default_key is defined %}
+	signingkey = {{ gpg_default_key }}
+
+[commit]
+	gpgsign = true
+{% endif %}
 
 [push]
 	default = {{ git_push_mode }}

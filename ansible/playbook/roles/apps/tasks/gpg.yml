@@ -1,0 +1,18 @@
+---
+- name: create gpg directory
+  tags: gpg
+  file:
+    path: "{{ gpg_directory }}"
+    state: directory
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    mode: 0700
+
+- name: write gpg configuration
+  tags: gpg
+  template:
+    src: "gpg.conf.j2"
+    dest: "{{ gpg_configuration_path }}"
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    mode: 0600
