@@ -17,7 +17,7 @@ function execute_download() {
 
 execute_download \
   'https://raw.githubusercontent.com/november-eleven/Kiss-my-Arch/master/bootstrap/xps13-9640-install/bootstrap' \
-  '88f629b112123d45161248c7c72367627813ae9d2e09bc2efc36a163fe107d51' \
+  '70d5707360241e8c549db6c5f89b011135e591fc3becb91c90695492e2e7bfa3' \
   '/usr/local/sbin/arch-bootstrap'
 
 execute_download \
