@@ -323,6 +323,8 @@ function ask_configuration() {
     clear
   done
 
+  ask_header
+
 }
 
 ask_configuration
