@@ -57,7 +57,7 @@
 
 ## Example
 
-**On ArchISO system:**
+**On local system:** _(Where we install Arch Linux)_
 
 ```
 loadkeys fr
@@ -66,7 +66,7 @@ passwd
 ip a show
 ```
 
-**On Other system:**
+**On remote system:** _(How we install Arch Linux)_
 
 ```
 ssh root@192.168.0.32
