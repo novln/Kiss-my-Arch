@@ -1,7 +1,7 @@
 ---
 - name: kill xfconfd daemon
   tags: xfconf
-  command: "/usr/bin/killall xfconfd"
+  shell: "/usr/bin/killall xfconfd || true"
 
 - name: create xfconf directory
   tags: xfconf
