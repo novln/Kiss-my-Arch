@@ -26,6 +26,7 @@
     append: yes
     name: "{{ user_name }}"
     groups: vboxusers
+  when: ansible_virtualization_role == "host"
 
 # - name: load virtualbox modules via modprobe
 #   tags: virtualbox
