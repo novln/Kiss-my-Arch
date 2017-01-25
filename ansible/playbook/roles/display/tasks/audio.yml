@@ -14,7 +14,7 @@
 - name: install gstreamer
   tags: audio
   pacman:
-    name: "gstreamer0.10-good-plugins"
+    name: "gstreamer,gst-plugins-good,gst-plugins-base"
     state: present
 
 - name: install ffmpeg
