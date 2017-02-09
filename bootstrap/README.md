@@ -52,7 +52,7 @@
 ## Installers
 
 * **Dell XPS 13 9333** -> _xps13-9333-install_
-* **Dell XPS 13 9640** -> _xps13-9640-install_
+* **Dell XPS 13 9360** -> _xps13-9360-install_
 * **Virtual Box** -> _vbox-install_
 
 ## Example
