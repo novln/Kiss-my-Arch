@@ -141,7 +141,7 @@ function configure_bootloader() {
   cp /boot/EFI/grub/grubx64.efi /boot/EFI/BOOT/BOOTX64.EFI || exit 255
 
   echo "[bootloader] configure grub"
-  sed -r -e 's#GRUB_CMDLINE_LINUX_DEFAULT="quiet"#GRUB_CMDLINE_LINUX_DEFAULT="quiet elevator=noop cryptdevice=/dev/sda2:luks:allow-discards"#' -i /etc/default/grub
+  sed -r -e 's#GRUB_CMDLINE_LINUX_DEFAULT="quiet"#GRUB_CMDLINE_LINUX_DEFAULT="quiet elevator=noop cryptdevice=/dev/nvme0n1p2:luks:allow-discards"#' -i /etc/default/grub
   sed -r -e 's/^#?GRUB_TIMEOUT=.*$/GRUB_TIMEOUT=0/' -i /etc/default/grub
 
   echo "[bootloader] update grub"
