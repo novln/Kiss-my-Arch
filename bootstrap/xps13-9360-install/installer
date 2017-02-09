@@ -4,7 +4,7 @@ function execute_download() {
   declare file_url="$1" file_sha256sum="$2" file_path="$3"
 
   echo "[installer] download ${file_url}"
-  wget "${file_url}" -O "${file_path}" || exit 255s
+  wget "${file_url}" -O "${file_path}" || exit 255
   chmod +x "${file_path}" || exit 255
 
   echo "${file_sha256sum} ${file_path}" | sha256sum -c - >/dev/null 2>&1
