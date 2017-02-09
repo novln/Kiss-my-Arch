@@ -22,7 +22,7 @@ execute_download \
 
 execute_download \
   'https://raw.githubusercontent.com/novln/Kiss-my-Arch/master/bootstrap/xps13-9360-install/configure' \
-  '4645c1df22bc00d1443ed6b68955c635d6d2f4bc68f3d153b519887f8dd872d5' \
+  'ba6ed9ec22eac05f3d039f48410de1a3222bdd93b73ce8c0ad6e794c9c95c559' \
   '/usr/local/sbin/arch-configure'
 
 timedatectl set-ntp true
