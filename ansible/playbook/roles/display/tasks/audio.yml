@@ -28,3 +28,9 @@
   pacman:
     name: "pavucontrol"
     state: present
+
+- name: install volumeicon
+  tags: audio
+  pacman:
+    name: "volumeicon"
+    state: present
