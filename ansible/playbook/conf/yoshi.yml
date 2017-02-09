@@ -1,0 +1,4 @@
+---
+lightdm_display_setup: true
+lightdm_display_output: eDP1
+lightdm_display_mode: 1920x1080

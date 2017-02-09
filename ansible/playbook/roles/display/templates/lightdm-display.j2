@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# load xrandr to force an initialization
+xrandr
+
+# define display resolution
+xrandr --output {{ lightdm_display_output }} --mode {{ lightdm_display_mode }}

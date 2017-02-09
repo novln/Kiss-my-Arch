@@ -113,7 +113,11 @@ allow-guest=false
 session-wrapper=/etc/lightdm/Xsession
 #greeter-wrapper=
 #guest-wrapper=
+{% if lightdm_display_setup is defined %}
+display-setup-script={{ lightdm_display_setup_path }}
+{% else %}
 #display-setup-script=
+{% endif %}
 #display-stopped-script=
 #greeter-setup-script=
 #session-setup-script=

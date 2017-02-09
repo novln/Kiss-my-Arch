@@ -11,6 +11,16 @@
     name: lightdm
     enabled: yes
 
+- name: write lightdm display setup
+  tags: lightdm
+  template:
+    src: lightdm-display.j2
+    dest: "{{ lightdm_display_setup_path }}"
+    owner: root
+    group: root
+    mode: 0744
+  when: lightdm_display_setup is defined
+
 - name: write lightdm configuration
   tags: lightdm
   template:
