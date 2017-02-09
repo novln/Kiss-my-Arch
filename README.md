@@ -40,4 +40,4 @@ $ ansible-playbook playbook/install.yml
 
 ## Online resources
 
-> `elinks https://november-eleven.github.io/Kiss-my-Arch/`
+> `elinks https://novln.github.io/Kiss-my-Arch/`
