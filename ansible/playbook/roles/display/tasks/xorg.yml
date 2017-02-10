@@ -9,7 +9,7 @@
 - name: install Xorg input drivers
   tags: xorg
   pacman:
-    name: "xf86-input-libinput,xf86-input-mouse,xf86-input-keyboard"
+    name: "xf86-input-libinput,xf86-input-mouse,xf86-input-keyboard,xsel,xclip"
     state: present
 
 - name: install Xorg video drivers
