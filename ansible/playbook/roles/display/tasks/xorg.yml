@@ -27,6 +27,15 @@
     group: root
     mode: 0644
 
+- name: write touchpad configuration for Xorg
+  tags: xorg
+  template:
+    src: "touchpad-input.conf.j2"
+    dest: "{{ xorg_touchpad_conf_path }}"
+    owner: root
+    group: root
+    mode: 0644
+
 - name: install X11 fonts with pacman
   tags: xorg
   pacman:
