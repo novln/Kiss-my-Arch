@@ -11,3 +11,9 @@
     append: yes
     name: "{{ user_name }}"
     groups: docker
+
+- name: install docker-compose with pacman
+  tags: docker
+  pacman:
+    name: "docker-compose"
+    state: present
