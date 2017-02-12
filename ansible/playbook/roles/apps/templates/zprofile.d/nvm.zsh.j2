@@ -1,0 +1,14 @@
+#
+# ~/.zprofile.d/nvm.zsh
+#
+
+# A lazy loader for nvm
+nvm_wrapper() {
+    if [ -z "$NVM_DIR" ]; then
+        export NVM_DIR="{{ nvm_config_path }}"
+        [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+    fi
+    nvm "$@"
+}
+
+alias nvm='nvm_wrapper'
