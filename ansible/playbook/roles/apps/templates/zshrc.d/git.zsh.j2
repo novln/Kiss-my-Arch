@@ -5,7 +5,7 @@
 git_wrapper()
 {
   if (( $# == 0 )) ; then
-    command git status -sb
+    command git status
   else
     command git "$@"
   fi
