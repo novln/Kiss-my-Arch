@@ -1,0 +1,8 @@
+---
+- name: install ansible with pacman
+  tags:
+    - tools
+    - ansible
+  pacman:
+    name: "ansible"
+    state: present
