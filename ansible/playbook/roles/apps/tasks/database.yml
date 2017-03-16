@@ -1,0 +1,8 @@
+---
+- name: install postgres client with pacman
+  tags:
+    - database
+    - postgres
+  pacman:
+    name: "postgresql-libs"
+    state: present

@@ -9,4 +9,5 @@
 - include: develop.yml
 - include: docker.yml
 - include: editor.yml
+- include: database.yml
 - include: printer.yml
