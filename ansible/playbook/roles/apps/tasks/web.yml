@@ -2,7 +2,7 @@
 - name: install firefox with pacman
   tags: firefox
   pacman:
-    name: "firefox,firefox-i18n-fr"
+    name: "firefox,firefox-i18n-fr,hunspell-fr"
     state: present
 
 - name: install thunderbird with pacman
