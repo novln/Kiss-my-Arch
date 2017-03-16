@@ -136,3 +136,11 @@
   pacman:
     name: "rust,cargo"
     state: present
+
+- name: install python with pacman
+  tags:
+    - develop
+    - python
+  pacman:
+    name: "python-pip,python-virtualenv"
+    state: present
