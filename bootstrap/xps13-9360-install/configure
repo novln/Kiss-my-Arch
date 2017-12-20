@@ -107,6 +107,10 @@ function configure_modprobe() {
   chmod 0644  /etc/modprobe.d/i915.conf
   chown root:root  /etc/modprobe.d/i915.conf
 
+  echo 'blacklist uvcvideo' > /etc/modprobe.d/camera.conf
+  chmod 0644  /etc/modprobe.d/camera.conf
+  chown root:root  /etc/modprobe.d/camera.conf
+
 }
 
 function configure_network() {
