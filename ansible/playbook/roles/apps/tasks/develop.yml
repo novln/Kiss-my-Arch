@@ -127,6 +127,7 @@
     - "go get github.com/alecthomas/gometalinter"
     - "go get github.com/divan/gofresh"
     - "go get github.com/aktau/github-release"
+    - "go get github.com/golang/dep/cmd/dep"
     - "gometalinter --install"
 
 - name: install rust with pacman
