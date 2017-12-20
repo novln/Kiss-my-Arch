@@ -23,3 +23,12 @@
   pacman:
     name: "docker-compose"
     state: present
+
+- name: configure docker for zsh
+  tags: docker
+  template:
+    src: "zprofile.d/docker.zsh.j2"
+    dest: "{{ zsh_configuration_directory }}/docker.zsh"
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    mode: 0644
