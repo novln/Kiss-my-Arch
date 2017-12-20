@@ -16,3 +16,9 @@
   pacman:
     name: "evince"
     state: present
+
+- name: install viewnior with pacman
+  tags: viewnior
+  pacman:
+    name: "viewnior"
+    state: present
