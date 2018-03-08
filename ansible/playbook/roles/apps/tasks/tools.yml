@@ -14,3 +14,11 @@
   pacman:
     name: "wireshark-gtk"
     state: present
+
+- name: install aws-cli with pacman
+  tags:
+    - tools
+    - aws
+  pacman:
+    name: "aws-cli"
+    state: present
