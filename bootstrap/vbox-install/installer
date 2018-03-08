@@ -22,7 +22,7 @@ execute_download \
 
 execute_download \
   'https://raw.githubusercontent.com/novln/Kiss-my-Arch/master/bootstrap/vbox-install/configure' \
-  'd2d684656a0d956b41526130ca98f6aa2de5b3c39ef68a52942ab3d53558070e' \
+  '498e3b665a981693ca27592f52f9ca19789ebebdd68912eb68c371e7bca31d77' \
   '/usr/local/sbin/arch-configure'
 
 timedatectl set-ntp true

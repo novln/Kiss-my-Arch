@@ -172,6 +172,7 @@ function configure_user() {
 
   echo "[user] configure sudo"
   echo "${user_name} ALL=(ALL) ALL" > "/etc/sudoers.d/${user_name}"
+  echo "Defaults pwfeedback" > "/etc/sudoers.d/feedback"
 
 }
 
