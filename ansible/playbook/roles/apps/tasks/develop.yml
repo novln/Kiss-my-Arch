@@ -54,6 +54,8 @@
     - nsp
     - npm-check
     - pen
+    - reveal-md
+    - npx
 
 - name: install scala with pacman
   tags:
