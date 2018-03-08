@@ -1,0 +1,6 @@
+---
+- name: install openvpn with pacman
+  tags: openvpn
+  pacman:
+    name: "openvpn"
+    state: present

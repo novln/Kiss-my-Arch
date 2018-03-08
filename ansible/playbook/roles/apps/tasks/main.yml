@@ -8,6 +8,7 @@
 - include: ssh.yml
 - include: develop.yml
 - include: docker.yml
+- include: network.yml
 - include: editor.yml
 - include: database.yml
 - include: tools.yml
