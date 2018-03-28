@@ -34,9 +34,3 @@
     owner: "{{ user_name }}"
     group: "{{ user_name }}"
     mode: 0644
-
-- name: install neovim with pacman
-  tags: neovim
-  pacman:
-    name: "neovim"
-    state: present
