@@ -5,7 +5,7 @@
 
 > A85A 8FDF 4451 D7D9 909F 500F **F156 5B36 F950 ED29**
 
-* `Thomas LE ROUX <thomas@november-eleven.fr>`
+* `Thomas LE ROUX <thomas@leroux.io>`
 
 ### Subkeys
 
