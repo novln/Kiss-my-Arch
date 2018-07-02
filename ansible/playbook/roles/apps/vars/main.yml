@@ -11,7 +11,7 @@ go_bin_directory: "{{ go_path_directory }}/bin"
 go_pkg_directory: "{{ go_path_directory }}/pkg"
 go_src_directory: "{{ go_path_directory }}/src"
 git_configuration_path: "/home/{{ user_name }}/.gitconfig"
-git_push_mode: "matching"
+git_push_mode: "simple"
 ssh_key_size: 8192
 ssh_directory: "/home/{{ user_name }}/.ssh"
 ssh_key_path: "{{ ssh_directory }}/id_rsa"
