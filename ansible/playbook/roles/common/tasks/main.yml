@@ -8,3 +8,4 @@
 - include: user.yml
 - include: kernel.yml
 - include: ssh.yml
+- include: spelling.yml

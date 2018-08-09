@@ -1,0 +1,12 @@
+---
+- name: install aspell with pacman
+  tags: spelling
+  pacman:
+    name: "aspell,aspell-en,aspell-fr"
+    state: present
+
+- name: install hunspell with pacman
+  tags: spelling
+  pacman:
+    name: "hunspell,hunspell-en,hunspell-fr"
+    state: present
