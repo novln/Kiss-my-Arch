@@ -39,7 +39,7 @@
     - curl
     - rsync
     - htop
-    - gnu-netcat
+    - openbsd-netcat
     - openssh
     - openssl
     - python2
