@@ -8,5 +8,5 @@
 - name: install hunspell with pacman
   tags: spelling
   pacman:
-    name: "hunspell,hunspell-en,hunspell-fr"
+    name: "hunspell,hunspell-en_AU,hunspell-en_CA,hunspell-en_GB,hunspell-en_US,hunspell-fr"
     state: present
