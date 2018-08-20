@@ -2,5 +2,5 @@
 - name: install openvpn with pacman
   tags: openvpn
   pacman:
-    name: "openvpn"
+    name: "openvpn,networkmanager-openvpn"
     state: present
