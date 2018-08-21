@@ -3,5 +3,9 @@
 # load xrandr to force an initialization
 xrandr
 
-# define display resolution
-xrandr --output {{ lightdm_display_output }} --mode {{ lightdm_display_mode }}
+# define display resolution for primary monitor
+xrandr --output {{ lightdm_display_output }} --mode {{ lightdm_display_mode }} --primary
+
+# disable auxiliary monitor
+LANG=C xrandr --listmonitors | tail +2 | awk '{print $4}' | \
+    grep -v -E '{{ lightdm_display_output }}' | xargs -I monitor xrandr --output monitor --off
