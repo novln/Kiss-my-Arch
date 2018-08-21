@@ -124,7 +124,11 @@ display-setup-script={{ lightdm_display_setup_path }}
 {% endif %}
 #display-stopped-script=
 #greeter-setup-script=
+{% if lightdm_display_setup is defined %}
+session-setup-script={{ lightdm_display_setup_path }}
+{% else %}
 #session-setup-script=
+{% endif %}
 #session-cleanup-script=
 autologin-guest=false
 #autologin-user=
