@@ -3,17 +3,17 @@
 #
 
 PANCAKE_SYMBOL="➤"
-PANCAKE_COLOR="blue"
-PANCAKE_GIT_REMOTE_COLOR="yellow"
+PANCAKE_COLOR="12" # blue
+PANCAKE_GIT_REMOTE_COLOR="11" # yellow
 PANCAKE_GIT_UNPULLED_SYMBOL="⇣"
 PANCAKE_GIT_UNPUSHED_SYMBOL="⇡"
 PANCAKE_GIT_CLEAN_SYMBOL="✔"
-PANCAKE_GIT_CLEAN_COLOR="green"
+PANCAKE_GIT_CLEAN_COLOR="2" # green
 PANCAKE_GIT_DIRTY_SYMBOL="✘"
-PANCAKE_GIT_DIRTY_COLOR="red"
+PANCAKE_GIT_DIRTY_COLOR="1" # red
 
 function pancake_status() {
-    local color="%(?.%F{green}.%F{red})"
+    local color="%(?.%F%10F.%F%9F)"
     local reset="%f "
     local symbol="%B${PANCAKE_SYMBOL}%b"
     echo -n "${color}${symbol}${reset}"
@@ -23,34 +23,70 @@ function pancake_newline() {
     echo -n "$prompt_newline"
 }
 
+function pancake_Cbstart() {
+    echo -n "%{\e[1m%}"
+}
+
+function pancake_Cbstop() {
+    echo -n "%{\e[22m%}"
+}
+
+function pancake_Cbgstart() {
+    declare color="$1"
+    echo -n "%{\e[48;5;${color}m%}"
+}
+
+function pancake_Cbgstop() {
+    echo -n "%{\e[49m%}"
+}
+
+function pancake_Cfgstart() {
+    declare color="$1"
+    echo -n "%{\e[38;5;${color}m%}"
+}
+
+function pancake_Cfgstop() {
+    echo -n "%{\e[39m%}"
+}
+
 function pancake_header() {
     local color="${PANCAKE_COLOR}"
-    echo "$(pancake_left_fade $color)$(pancake_username $color)$(pancake_right_fade $color) $(pancake_directory $color)"
+    echo -n "$(pancake_left_fade $color)$(pancake_username $color)$(pancake_right_fade $color) $(pancake_directory $color)"
 }
 
 function pancake_left_fade() {
     declare color="$1"
-    echo "%F{$color}%B%K{$color}$schars[333]$schars[262]$schars[261]$schars[260]%k%b%f"
+
+    local header="$(pancake_Cbstart)$(pancake_Cfgstart $color)$(pancake_Cbgstart 0)"
+    local fade="$schars[260]$schars[261]$schars[262]$schars[333]$schars[333]"
+    local footer="$(pancake_Cbgstop)$(pancake_Cfgstop)$(pancake_Cbstop)"
+
+    echo -n "${header}${fade}${footer}"
 }
 
 function pancake_right_fade() {
     declare color="$1"
-    echo "%F{$color}%K{black}$schars[333]$schars[262]$schars[261]$schars[260]%k%f"
+
+    local header="$(pancake_Cbstart)$(pancake_Cfgstart $color)$(pancake_Cbgstart 0)"
+    local fade="$schars[333]$schars[333]$schars[262]$schars[261]$schars[260]"
+    local footer="$(pancake_Cbgstop)$(pancake_Cfgstop)$(pancake_Cbstop)"
+
+    echo -n "${header}${fade}${footer}"
 }
 
 function pancake_directory() {
     declare color="$1"
 
     local max_length=65
-    local header="%F{$color}"
-    local footer="%f"
+    local header="$(pancake_Cfgstart $color)"
+    local footer="$(pancake_Cfgstop)"
     local fullpath="%~"
     local shortpath="%-2~ ... %3~"
 
     if [[ $(pwd | wc -c) -gt ${max_length} ]]; then
-        echo "${header}${shortpath}${footer}"
+        echo -n "${header}${shortpath}${footer}"
     else
-        echo "${header}${fullpath}${footer}"
+        echo -n "${header}${fullpath}${footer}"
     fi
 
 }
@@ -58,15 +94,15 @@ function pancake_directory() {
 function pancake_username() {
     declare color="$1"
 
-    local header="%F{white}%K{$color}%B"
-    local footer="%f%k%b"
+    local header="$(pancake_Cbstart)$(pancake_Cfgstart 15)$(pancake_Cbgstart $color)"
+    local footer="$(pancake_Cbgstop)$(pancake_Cfgstop)$(pancake_Cbstop)"
     local username="%n"
     local host="%m"
 
     if [[ "$SSH_CONNECTION" != '' ]]; then
-        echo "${header}${username}@${host}${footer}"
+        echo -n "${header}${username}@${host}${footer}"
     else
-        echo "${header}${username}${footer}"
+        echo -n "${header}${username}${footer}"
     fi
 
 }
@@ -75,22 +111,21 @@ function pancake_git_branch() {
 
   branch=$(git symbolic-ref --short HEAD 2> /dev/null) || branch=$(git rev-parse --short HEAD 2> /dev/null) || return
 
-  local header="%B"
-  local footer="%b"
+  local header="$(pancake_Cbstart)"
+  local footer="$(pancake_Cbstop)"
 
-  echo "${header}${branch}${footer}"
+  echo -n "${header}${branch}${footer}"
 
 }
 
 function pancake_git_status() {
-
-    local clean="%F{$PANCAKE_GIT_CLEAN_COLOR}${PANCAKE_GIT_CLEAN_SYMBOL}%f"
-    local dirty="%F{$PANCAKE_GIT_DIRTY_COLOR}${PANCAKE_GIT_DIRTY_SYMBOL}%f"
+    local clean="$(pancake_Cfgstart $PANCAKE_GIT_CLEAN_COLOR)${PANCAKE_GIT_CLEAN_SYMBOL}$(pancake_Cfgstop)"
+    local dirty="$(pancake_Cfgstart $PANCAKE_GIT_DIRTY_COLOR)${PANCAKE_GIT_DIRTY_SYMBOL}$(pancake_Cfgstop)"
 
     if [[ -z "$(command git status --porcelain --ignore-submodules -unormal)" ]]; then
-        echo "${clean}"
+        echo -n "${clean}"
     else
-        echo "${dirty}"
+        echo -n "${dirty}"
     fi
 
 }
@@ -100,20 +135,20 @@ function pancake_git_remote_check() {
     local local_commit=$(git rev-parse "@" 2>&1)
     local remote_commit=$(git rev-parse "@{u}" 2>&1)
     local common_base=$(git merge-base "@" "@{u}" 2>&1)
-    local header="%F{$PANCAKE_GIT_REMOTE_COLOR}"
-    local footer="%f"
+    local header="$(pancake_Cfgstart $PANCAKE_GIT_REMOTE_COLOR)"
+    local footer="$(pancake_Cfgstop)"
     local unpulled="${PANCAKE_GIT_UNPULLED_SYMBOL}"
     local unpushed="${PANCAKE_GIT_UNPUSHED_SYMBOL}"
 
     if [[ $local_commit == $remote_commit ]]; then
-        echo ""
+        echo -n ""
     else
         if [[ $common_base == $remote_commit ]]; then
-            echo "${header}${unpushed}${footer}"
+            echo -n "${header}${unpushed}${footer}"
         elif [[ $common_base == $local_commit ]]; then
-            echo "${header}${unpulled}${footer}"
+            echo -n "${header}${unpulled}${footer}"
         else
-            echo "${header}${unpushed} ${unpulled}${footer}"
+            echo -n "${header}${unpushed} ${unpulled}${footer}"
         fi
     fi
 
@@ -121,7 +156,7 @@ function pancake_git_remote_check() {
 
 function pancake_git_info() {
     if git rev-parse --git-dir > /dev/null 2>&1; then
-        echo "$(pancake_git_branch) $(pancake_git_status) $(pancake_git_remote_check)"
+        echo -n "$(pancake_git_branch) $(pancake_git_status) $(pancake_git_remote_check)"
     fi
 }
 
