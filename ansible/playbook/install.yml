@@ -1,4 +1,4 @@
 ---
-- include: common.yml
-- include: display.yml
-- include: user.yml
+- import_playbook: common.yml
+- import_playbook: display.yml
+- import_playbook: user.yml
