@@ -50,3 +50,5 @@ vertex_sha256: "c7faa20bbc8c0e70dc917332a717edfb15a9b8237d5b076d41356e3b388e682e
 vertex_pkg: "{{ vertex_pkgname }}-{{ vertex_pkgver }}-{{ vertex_pkgrel }}-any.pkg.tar.xz"
 vertex_url: "https://github.com/novln/vertex-themes/releases/download/{{ vertex_pkgver }}-{{ vertex_pkgrel }}/{{ vertex_pkg }}"
 vertex_path: "{{ pacman_pkg_cache_path }}/{{ vertex_pkg }}"
+kitty_root_path: "/home/{{ user_name }}/.config/kitty"
+kitty_conf_path: "/home/{{ user_name }}/.config/kitty/kitty.conf"

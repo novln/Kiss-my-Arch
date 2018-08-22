@@ -8,3 +8,4 @@
 - include: accounts.yml
 - include: gvfs.yml
 - include: audio.yml
+- include: kitty.yml

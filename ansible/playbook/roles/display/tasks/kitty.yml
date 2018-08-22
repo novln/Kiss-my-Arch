@@ -1,0 +1,25 @@
+---
+- name: install kitty
+  tags: kitty
+  pacman:
+    name: "kitty,imagemagick"
+    state: present
+
+- name: create kitty configuration directory
+  tags: kitty
+  file:
+    path: "{{ kitty_root_path }}"
+    state: directory
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    recurse: yes
+    mode: 0755
+
+- name: write kitty configuration
+  tags: kitty
+  template:
+    src: kitty.conf.j2
+    dest: "{{ kitty_conf_path }}"
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    mode: 0644
