@@ -38,7 +38,7 @@
 - name: install gnome utils
   tags: xfce4
   pacman:
-    name: "gnome-disk-utility,gnome-system-monitor,gnome-calculator,alacarte,gnome-keyring"
+    name: "gnome-disk-utility,gnome-system-monitor,gnome-calculator,alacarte,gnome-keyring,gnome-font-viewer"
     state: present
 
 - name: install network-manager applet
