@@ -51,6 +51,7 @@
     - freetype2
     - gsfonts
     - sdl_ttf
+    - sdl2_ttf
     - ttf-bitstream-vera
     - ttf-cheapskate
     - ttf-dejavu
@@ -61,18 +62,33 @@
     - ttf-hannom
     - ttf-droid
     - ttf-fira-mono
+    - ttf-fira-code
     - ttf-fira-sans
-    - otf-ipafont
     - ttf-hanazono
+    - ttf-cormorant
     - ttf-baekmuk
+    - otf-cormorant
+    - otf-ipafont
+    - otf-fira-code
+    - otf-font-awesome
+    - powerline-fonts
+    - noto-fonts
     - noto-fonts-cjk
     - noto-fonts-emoji
+    - noto-fonts-extra
     - adobe-source-code-pro-fonts
+    - adobe-source-sans-pro-fonts
+    - adobe-source-serif-pro-fonts
     - adobe-source-han-sans-otc-fonts
     - adobe-source-han-sans-kr-fonts
     - adobe-source-han-sans-jp-fonts
     - adobe-source-han-sans-cn-fonts
     - adobe-source-han-sans-tw-fonts
+    - adobe-source-han-serif-cn-fonts
+    - adobe-source-han-serif-jp-fonts
+    - adobe-source-han-serif-kr-fonts
+    - adobe-source-han-serif-otc-fonts
+    - adobe-source-han-serif-tw-fonts
     - ttf-arphic-ukai
     - ttf-arphic-uming
     - opendesktop-fonts
@@ -85,3 +101,5 @@
     - font-mathematica
     - ttf-symbola
     - ttf-ionicons
+    - ttf-carlito
+    - ttf-linux-libertine
