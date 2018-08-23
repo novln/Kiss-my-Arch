@@ -2,20 +2,27 @@
 # ~/.zshrc.d/prompt.zsh
 #
 
-PANCAKE_SYMBOL="➤"
-PANCAKE_COLOR="12" # blue
-PANCAKE_GIT_REMOTE_COLOR="11" # yellow
+PANCAKE_HEADER_MAIN_COLOR="4" # dark blue
+PANCAKE_HEADER_FADING_COLOR="12" # light blue
+PANCAKE_STATUS_SYMBOL="➤"
+PANCAKE_STATUS_OK_COLOR="2" # dark green
+PANCAKE_STATUS_NO_COLOR="1" # dark red
+PANCAKE_GIT_REMOTE_COLOR="11" # light yellow
 PANCAKE_GIT_UNPULLED_SYMBOL="⇣"
 PANCAKE_GIT_UNPUSHED_SYMBOL="⇡"
 PANCAKE_GIT_CLEAN_SYMBOL="✔"
-PANCAKE_GIT_CLEAN_COLOR="2" # green
+PANCAKE_GIT_CLEAN_COLOR="2" # dark green
 PANCAKE_GIT_DIRTY_SYMBOL="✘"
-PANCAKE_GIT_DIRTY_COLOR="1" # red
+PANCAKE_GIT_DIRTY_COLOR="1" # dark red
 
 function pancake_status() {
-    local color="%(?.%F%10F.%F%9F)"
-    local reset="%f "
-    local symbol="%B${PANCAKE_SYMBOL}%b"
+    local color1="${PANCAKE_STATUS_OK_COLOR}"
+    local color2="${PANCAKE_STATUS_NO_COLOR}"
+
+    local color="%(?.$(pancake_Cfgstart $color1).$(pancake_Cfgstart $color2))"
+    local reset="$(pancake_Cfgstop) "
+    local symbol="$(pancake_Cbstart)${PANCAKE_STATUS_SYMBOL}$(pancake_Cbstop)"
+
     echo -n "${color}${symbol}${reset}"
 }
 
@@ -50,14 +57,14 @@ function pancake_Cfgstop() {
 }
 
 function pancake_header() {
-    local color="${PANCAKE_COLOR}"
-    echo -n "$(pancake_left_fade $color)$(pancake_username $color)$(pancake_right_fade $color) $(pancake_directory $color)"
+    echo -n "$(pancake_left_fade)$(pancake_username)$(pancake_right_fade) $(pancake_directory)"
 }
 
 function pancake_left_fade() {
-    declare color="$1"
+    local color1="${PANCAKE_HEADER_MAIN_COLOR}"
+    local color2="${PANCAKE_HEADER_FADING_COLOR}"
 
-    local header="$(pancake_Cbstart)$(pancake_Cfgstart $color)$(pancake_Cbgstart 0)"
+    local header="$(pancake_Cbstart)$(pancake_Cfgstart $color1)$(pancake_Cbgstart $color2)"
     local fade="$schars[260]$schars[261]$schars[262]$schars[333]$schars[333]"
     local footer="$(pancake_Cbgstop)$(pancake_Cfgstop)$(pancake_Cbstop)"
 
@@ -65,7 +72,7 @@ function pancake_left_fade() {
 }
 
 function pancake_right_fade() {
-    declare color="$1"
+    local color="${PANCAKE_HEADER_MAIN_COLOR}"
 
     local header="$(pancake_Cbstart)$(pancake_Cfgstart $color)$(pancake_Cbgstart 0)"
     local fade="$schars[333]$schars[333]$schars[262]$schars[261]$schars[260]"
@@ -75,7 +82,7 @@ function pancake_right_fade() {
 }
 
 function pancake_directory() {
-    declare color="$1"
+    local color="${PANCAKE_HEADER_MAIN_COLOR}"
 
     local max_length=65
     local header="$(pancake_Cfgstart $color)"
@@ -92,7 +99,7 @@ function pancake_directory() {
 }
 
 function pancake_username() {
-    declare color="$1"
+    local color="${PANCAKE_HEADER_MAIN_COLOR}"
 
     local header="$(pancake_Cbstart)$(pancake_Cfgstart 15)$(pancake_Cbgstart $color)"
     local footer="$(pancake_Cbgstop)$(pancake_Cfgstop)$(pancake_Cbstop)"
