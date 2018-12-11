@@ -245,9 +245,8 @@ function ask_configuration() {
 ask_configuration
 wipe_disk "/dev/sda"
 create_partitions "/dev/sda"
-format_filesystem "/dev/sda1" "/dev/sda2"
-encrypt_filesystem "/dev/sda2" "${DISK_PASSWORD}" "xps0" "8G"
-mount_filesystem "/dev/sda1" "/dev/mapper/xps0-root" "/dev/mapper/xps0-swap"
+format_filesystem "/dev/sda1"
+mount_filesystem "/dev/sda1"
 pacstrap_install
 generate_fstab
 execute_chroot
