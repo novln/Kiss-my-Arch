@@ -43,7 +43,7 @@ function pacstrap_install() {
   pacstrap /mnt base base-devel bash-completion
 
   echo "[pacstrap] install grub"
-  pacstrap /mnt grub os-prober efibootmgr
+  pacstrap /mnt grub
 
   echo "[pacstrap] install network-manager"
   pacstrap /mnt networkmanager wireless_tools wpa_supplicant
@@ -137,13 +137,13 @@ function create_partitions() {
 }
 
 function format_filesystem() {
-  declare esp="$1" root="$2"
+  declare boot="$1" root="$2"
 
-  echo "[filesystem] make fat32 filesystem for ${esp}"
-  mkfs.vfat -F 32 -n Grub "${esp}"
+  echo "[filesystem] make fat32 filesystem for ${boot}"
+  mkfs.vfat -F 32 "${boot}"
 
   echo "[filesystem] make ext4 filesystem for ${root}"
-  mkfs.ext4 -F -L Archlinux "${root}"
+  mkfs.ext4 -F "${root}"
 
 }
 
