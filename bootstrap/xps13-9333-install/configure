@@ -1,0 +1,191 @@
+#!/bin/bash
+
+function execute_download() {
+  declare file_url="$1" file_sha256sum="$2" file_path="$3"
+
+  echo "[installer] download ${file_url}"
+  curl -fsSL "${file_url}" -o "${file_path}" || exit 255
+
+  echo "${file_sha256sum} ${file_path}" | sha256sum -c - >/dev/null 2>&1
+  if [[ $? -ne 0 ]]; then
+    echo >&2 "Checksum verification failed for ${file_path}."
+    exit 255
+  fi
+
+}
+
+function configure_hostname() {
+  declare hostname="$1"
+
+  echo "[hostname] configure"
+  echo "${hostname}" > /etc/hostname
+  chmod 0644 /etc/hostname
+  chown root:root /etc/hostname
+
+}
+
+function configure_locale() {
+  declare locale="$1" lang="$2"
+
+  echo "[locale] generate"
+  echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
+  echo "${locale}" >> /etc/locale.gen
+  chmod 0644 /etc/locale.gen
+  chown root:root /etc/locale.gen
+
+  echo "LANG=\"${lang}\"" > /etc/locale.conf
+  chmod 0644 /etc/locale.conf
+  chown root:root /etc/locale.conf
+  locale-gen
+
+}
+
+
+function configure_vconsole() {
+  declare keymap="$1" font="$2"
+
+  echo "[vconsole] configure"
+  echo "KEYMAP=${keymap}" > /etc/vconsole.conf
+  echo "FONT=${font}" >> /etc/vconsole.conf
+  chmod 0644 /etc/vconsole.conf
+  chown root:root /etc/vconsole.conf
+
+}
+
+function configure_timezone() {
+  declare timezone="$1"
+
+  echo "[timezone] use ${timezone}"
+  ln -sf /usr/share/zoneinfo/${timezone} /etc/localtime
+  if [[ $? -ne 0 ]]; then
+    exit 255
+  fi
+  hwclock --systohc --utc
+
+}
+
+function configure_mkinitcpio() {
+  declare modules="$1" binaries="$2" files="$3" hooks="$4"
+
+  echo "[mkinitcpio] reset configuration"
+  echo '' > /etc/mkinitcpio.conf
+
+  echo "[mkinitcpio] configure modules with: ${modules}"
+  echo "# MODULES" >> /etc/mkinitcpio.conf
+  echo "MODULES=\"${modules}\"" >> /etc/mkinitcpio.conf
+  echo "" >> /etc/mkinitcpio.conf
+
+  echo "[mkinitcpio] configure binaries with: ${binaries}"
+  echo "# BINARIES" >> /etc/mkinitcpio.conf
+  echo "BINARIES=\"${binaries}\"" >> /etc/mkinitcpio.conf
+  echo "" >> /etc/mkinitcpio.conf
+
+  echo "[mkinitcpio] configure files with: ${files}"
+  echo "# FILES" >> /etc/mkinitcpio.conf
+  echo "FILES=\"${files}\"" >> /etc/mkinitcpio.conf
+  echo "" >> /etc/mkinitcpio.conf
+
+  echo "[mkinitcpio] configure hooks with: ${hooks}"
+  echo "# HOOKS" >> /etc/mkinitcpio.conf
+  echo "HOOKS=\"${hooks}\"" >> /etc/mkinitcpio.conf
+  echo "" >> /etc/mkinitcpio.conf
+
+  echo "[mkinitcpio] configure kernel"
+  mkinitcpio -p linux
+
+}
+
+function configure_modprobe() {
+
+  echo "[modprobe] configure"
+
+  echo 'blacklist pcspkr' > /etc/modprobe.d/nobeep.conf
+  chmod 0644  /etc/modprobe.d/nobeep.conf
+  chown root:root  /etc/modprobe.d/nobeep.conf
+
+  echo 'options i915 enable_rc6=1 enable_fbc=1 semaphores=1' > /etc/modprobe.d/i915.conf
+  chmod 0644  /etc/modprobe.d/i915.conf
+  chown root:root  /etc/modprobe.d/i915.conf
+
+  echo 'blacklist uvcvideo' > /etc/modprobe.d/camera.conf
+  chmod 0644  /etc/modprobe.d/camera.conf
+  chown root:root  /etc/modprobe.d/camera.conf
+
+}
+
+function configure_network() {
+
+  echo "[network] enable network-manager"
+  systemctl enable NetworkManager.service
+
+  echo "[network] enable sshd"
+  systemctl enable sshd.service
+
+}
+
+function configure_pacman() {
+
+  echo "[pacman] configure mirrorlist"
+  echo 'Server = http://mir.archlinux.fr/$repo/os/$arch' > /etc/pacman.d/mirrorlist
+  echo 'Server = http://delta.archlinux.fr/$repo/os/$arch' >> /etc/pacman.d/mirrorlist
+  echo 'Server = http://mirrors.kernel.org/archlinux/$repo/os/$arch' >> /etc/pacman.d/mirrorlist
+  echo 'Server = http://archlinux.mirrors.ovh.net/archlinux/$repo/os/$arch' >> /etc/pacman.d/mirrorlist
+  chmod 0644 /etc/pacman.d/mirrorlist
+  chown root:root /etc/pacman.d/mirrorlist
+
+}
+
+function configure_bootloader() {
+
+  echo "[bootloader] install grub"
+  grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub
+
+  echo "[bootloader] create bootx64.efi bootloader"
+  mkdir -p /boot/EFI/BOOT || exit 255
+  cp /boot/EFI/grub/grubx64.efi /boot/EFI/BOOT/BOOTX64.EFI || exit 255
+
+  echo "[bootloader] configure grub"
+  sed -r -e 's#GRUB_CMDLINE_LINUX_DEFAULT="quiet"#GRUB_CMDLINE_LINUX_DEFAULT="quiet elevator=noop cryptdevice=/dev/nvme0n1p2:luks:allow-discards"#' -i /etc/default/grub
+  sed -r -e 's/^#?GRUB_TIMEOUT=.*$/GRUB_TIMEOUT=0/' -i /etc/default/grub
+
+  echo "[bootloader] update grub"
+  grub-mkconfig -o /boot/grub/grub.cfg
+
+}
+
+function configure_x11() {
+
+  echo "[xorg] configure keyboard"
+  localectl set-x11-keymap fr oss
+
+}
+
+function configure_user() {
+  declare root_passwd="$1" user_name="$2" user_passwd="$3" user_comment="$4"
+
+  echo "[user] configure root password"
+  echo "root:${root_passwd}" | chpasswd
+
+  echo "[user] add ${user_name} user"
+  useradd -m -s /bin/bash -G 'log,audio,lp,storage,systemd-journal,users,wheel' -c "${user_comment}" "${user_name}"
+
+  echo "[user] configure ${user_name} password"
+  echo "${user_name}:${user_passwd}" | chpasswd
+
+  echo "[user] configure sudo"
+  echo "${user_name} ALL=(ALL) ALL" > "/etc/sudoers.d/${user_name}"
+  echo "Defaults pwfeedback" > "/etc/sudoers.d/feedback"
+
+}
+
+configure_hostname "archlinux"
+configure_locale "fr_FR.UTF-8 UTF-8" "fr_FR.UTF-8"
+configure_vconsole "fr-pc" "lat9w-16"
+configure_timezone "Europe/Paris"
+configure_mkinitcpio "intel_agp i915 ext4" "" "" "base udev autodetect modconf block encrypt lvm2 filesystems keyboard fsck"
+configure_network
+configure_pacman
+configure_modprobe
+configure_bootloader
+configure_x11
+configure_user "${ROOT_PASSWORD}" "${USER_NAME}" "${USER_PASSWORD}" "${USER_COMMENT}"
