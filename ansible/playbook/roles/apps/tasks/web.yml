@@ -10,3 +10,18 @@
   pacman:
     name: "thunderbird,thunderbird-i18n-fr"
     state: present
+
+- name: install transmission with pacman
+  tags: transmission
+  pacman:
+    name: "transmission-gtk"
+    state: present
+
+- name: configure transmission
+  tags: transmission
+  template:
+    src: transmission-settings.json.j2
+    dest: "{{ transmission_configuration_path }}"
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    mode: 0644
