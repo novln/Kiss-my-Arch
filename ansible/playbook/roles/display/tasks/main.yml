@@ -1,6 +1,7 @@
 ---
 - include: xorg.yml
 - include: gtk.yml
+- include: qt5.yml
 - include: themes.yml
 - include: lightdm.yml
 - include: xfce4.yml

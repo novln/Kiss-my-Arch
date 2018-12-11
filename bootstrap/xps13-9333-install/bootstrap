@@ -118,7 +118,7 @@ function wipe_disk() {
     exit 255
   fi
 
-  parted -s "${device}" mklabel gpt
+  parted -s "${device}" mklabel msdos
 
 }
 
@@ -127,8 +127,8 @@ function create_partitions() {
 
   echo "[disk] create partitions for ${device}"
 
-  echo "[disk] create EFI system partition"
-  parted -s "${device}" mkpart ESP fat32 1MiB 513MiB
+  echo "[disk] create Grub system partition"
+  parted -s "${device}" mkpart primary fat32 1MiB 513MiB
   parted -s "${device}" set 1 boot on
 
   echo "[disk] create Archlinux partition"
@@ -140,7 +140,7 @@ function format_filesystem() {
   declare esp="$1" root="$2"
 
   echo "[filesystem] make fat32 filesystem for ${esp}"
-  mkfs.vfat -F 32 -n EFI "${esp}"
+  mkfs.vfat -F 32 -n Grub "${esp}"
 
   echo "[filesystem] make ext4 filesystem for ${root}"
   mkfs.ext4 -F -L Archlinux "${root}"

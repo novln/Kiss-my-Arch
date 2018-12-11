@@ -17,12 +17,12 @@ function execute_download() {
 
 execute_download \
   'https://raw.githubusercontent.com/novln/Kiss-my-Arch/master/bootstrap/xps13-9333-install/bootstrap' \
-  '88ad94735daf469adad8a687c050f59ddda6e06bd7a192dd46302278c8e9000b' \
+  '34af8d30369aa2e7e0f19c518eaf180887d20df241ecbfd53ddd33af29af90b9' \
   '/usr/local/sbin/arch-bootstrap'
 
 execute_download \
   'https://raw.githubusercontent.com/novln/Kiss-my-Arch/master/bootstrap/xps13-9333-install/configure' \
-  '4ba24eacc42c7ed4ac36297e168473ec1247861581a734741e543628ac080195' \
+  'f77e74dc94da612368f3cb44cba42e0a8fd67264efe3bfb7600a667aeb48f671' \
   '/usr/local/sbin/arch-configure'
 
 timedatectl set-ntp true

@@ -1,0 +1,6 @@
+---
+- name: install qt5 with pacman
+  tags: qt5
+  pacman:
+    name: "qt5-base,qt5-svg,qt5-x11extras"
+    state: present
