@@ -141,10 +141,8 @@ function configure_bootloader() {
   grub-install --target=i386-pc /dev/sda
 
   echo "[bootloader] configure grub"
-  sed -r -e 's#GRUB_CMDLINE_LINUX_DEFAULT="quiet"#GRUB_CMDLINE_LINUX_DEFAULT="quiet elevator=noop cryptdevice=/dev/sda2:luks:allow-discards"#' -i /etc/default/grub
+  sed -r -e 's#GRUB_CMDLINE_LINUX_DEFAULT="quiet"#GRUB_CMDLINE_LINUX_DEFAULT="quiet elevator=noop"#' -i /etc/default/grub
   sed -r -e 's/^#?GRUB_TIMEOUT=.*$/GRUB_TIMEOUT=0/' -i /etc/default/grub
-  sed -r -e 's/^#?GRUB_PRELOAD_MODULES=.*$/GRUB_PRELOAD_MODULES="part_gpt part_msdos lvm"/' -i /etc/default/grub
-  sed -r -e 's/^#?GRUB_ENABLE_CRYPTODISK=.*$/GRUB_ENABLE_CRYPTODISK=y/' -i /etc/default/grub
 
   echo "[bootloader] update grub"
   grub-mkconfig -o /boot/grub/grub.cfg

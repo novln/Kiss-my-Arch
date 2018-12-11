@@ -1,28 +1,15 @@
 #!/bin/bash
 
 function mount_filesystem() {
-  declare esp="$1" root="$2" swap="$3"
+  declare root="$1"
 
   echo "[mount] /"
   mkdir -p /mnt
   mount "${root}" /mnt
 
-  echo "[mount] /boot"
-  mkdir -p /mnt/boot
-  mount "${esp}" /mnt/boot
-
-  echo "[mount] enable swap"
-  swapon "${swap}"
-
 }
 
 function umount_filesystem() {
-
-  echo "[mount] disable swap"
-  swapoff -a
-
-  echo "[umount] /boot"
-  umount /mnt/boot
 
   echo "[umount] /"
   umount /mnt
@@ -127,54 +114,17 @@ function create_partitions() {
 
   echo "[disk] create partitions for ${device}"
 
-  echo "[disk] create Grub system partition"
-  parted -s "${device}" mkpart primary fat32 1MiB 513MiB
-  parted -s "${device}" set 1 boot on
-
   echo "[disk] create Archlinux partition"
-  parted -s "${device}" mkpart primary ext4 513MiB 100%
+  parted -s "${device}" mkpart primary ext4 1MiB 100%
+  parted -s "${device}" set 1 boot on
 
 }
 
 function format_filesystem() {
-  declare boot="$1" root="$2"
-
-  echo "[filesystem] make fat32 filesystem for ${boot}"
-  mkfs.vfat -F 32 "${boot}"
+  declare root="$1"
 
   echo "[filesystem] make ext4 filesystem for ${root}"
   mkfs.ext4 -F "${root}"
-
-}
-
-function encrypt_filesystem() {
-  declare root="$1" password="$2" volume="$3" size="$4"
-
-  echo "[encrypt] create encrypted filesystem for ${root}"
-  echo -n "${password}" | cryptsetup --use-urandom \
-    --cipher aes-xts-plain64 --key-size 512 --hash sha512 \
-    luksFormat "${root}" || exit 255
-
-  echo "[encrypt] open ${root} on device mapper"
-  echo -n "${password}" | cryptsetup open --type luks "${root}" lvm || exit 255
-
-  echo "[encrypt] create physical volume on /dev/mapper/lvm"
-  pvcreate /dev/mapper/lvm || exit 255
-
-  echo "[encrypt] create ${volume} volume group on /dev/mapper/lvm"
-  vgcreate "${volume}" /dev/mapper/lvm || exit 255
-
-  echo "[encrypt] create swap logical volume on /dev/mapper/lvm"
-  lvcreate --size "${size}" "${volume}" --name swap || exit 255
-
-  echo "[encrypt] create root logical volume on /dev/mapper/lvm"
-  lvcreate -l +100%FREE "${volume}" --name root || exit 255
-
-  echo "[encrypt] make ext4 filesystem for /dev/mapper/${volume}-root"
-  mkfs.ext4 "/dev/mapper/${volume}-root" || exit 255
-
-  echo "[encrypt] make swap filesystem for /dev/mapper/${volume}-swap"
-  mkswap "/dev/mapper/${volume}-swap" || exit 255
 
 }
 
@@ -252,35 +202,6 @@ function ask_user_info() {
 
 }
 
-function ask_disk_password() {
-
-  ask_header
-
-  read -r -s -p "set disk encryption password: " DISK_PASSWORD
-  echo
-  read -r -s -p "confirm disk encryption password: " DISK_PASSWORD_CONFIRM
-  echo
-
-  if [[ -z ${DISK_PASSWORD} ]]; then
-    echo ""
-    echo "Please define a disk encryption password."
-    echo ""
-    return 1
-  fi
-
-  if [[ ${DISK_PASSWORD_CONFIRM} != ${DISK_PASSWORD} ]]; then
-    echo ""
-    echo "Please use the same password as confirmation."
-    echo ""
-    return 1
-  fi
-
-  export DISK_PASSWORD
-  unset DISK_PASSWORD_CONFIRM
-  return 0
-
-}
-
 function ask_header() {
 
   clear
@@ -312,12 +233,6 @@ function ask_configuration() {
   done
 
   until ask_user_password
-  do
-    sleep 5
-    clear
-  done
-
-  until ask_disk_password
   do
     sleep 5
     clear
