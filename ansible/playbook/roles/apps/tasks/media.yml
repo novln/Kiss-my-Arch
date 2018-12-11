@@ -2,7 +2,7 @@
 - name: install vlc with pacman
   tags: vlc
   pacman:
-    name: "vlc,twolame,qt4"
+    name: "vlc,twolame,qt5"
     state: present
 
 - name: install zip with pacman
