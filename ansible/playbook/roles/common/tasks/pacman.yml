@@ -32,16 +32,15 @@
 - name: install required packages
   tags: pacman
   pacman:
-    name: "{{ item }}"
+    name:
+      - wget
+      - curl
+      - rsync
+      - htop
+      - openbsd-netcat
+      - openssh
+      - openssl
+      - python2
+      - bash-completion
+      - bind-tools
     state: present
-  with_items:
-    - wget
-    - curl
-    - rsync
-    - htop
-    - openbsd-netcat
-    - openssh
-    - openssl
-    - python2
-    - bash-completion
-    - bind-tools

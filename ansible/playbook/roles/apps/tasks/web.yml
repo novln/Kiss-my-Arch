@@ -17,6 +17,14 @@
     name: "transmission-gtk"
     state: present
 
+- name: ensure transmission configuration directory exists
+  tags: transmission
+  file:
+    path: "{{transmission_configuration_directory}}"
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    state: "directory"
+
 - name: configure transmission
   tags: transmission
   template:

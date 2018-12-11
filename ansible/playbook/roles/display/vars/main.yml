@@ -2,6 +2,7 @@
 xorg_cursor_theme: "Vanilla-DMZ"
 xorg_keyboard_conf_path: "/etc/X11/xorg.conf.d/00-keyboard.conf"
 xorg_touchpad_conf_path: "/etc/X11/xorg.conf.d/30-touchpad.conf"
+profile_directory: "/etc/profile.d/"
 backgrounds_directory: "/usr/share/backgrounds"
 lightdm_background_path: "{{ backgrounds_directory }}/autumn-leaves/2560x1600.jpg"
 lightdm_theme_name: "Vertex-Dark"

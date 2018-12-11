@@ -14,13 +14,13 @@
 - name: install gtk engines
   tags: gtk
   pacman:
-    name: "gtk-engine-aurora,gtk-engine-murrine,gtk-engines"
+    name: "gtk-engine-murrine,gtk-engines"
     state: present
 
 - name: install gtk packages
   tags: gtk
   pacman:
-    name: "pygtk,webkitgtk2,gnome-common,gnome-doc-utils"
+    name: "pygtk,gnome-common,gnome-doc-utils"
     state: present
 
 - name: install gtk themes

@@ -2,7 +2,7 @@
 - name: install Xorg
   tags: xorg
   pacman:
-    name: "xorg-server,xorg-xinit,xorg-server-utils"
+    name: "xorg-server,xorg-xinit"
     state: present
   register: xorg_install
 
@@ -39,66 +39,65 @@
 - name: install X11 fonts with pacman
   tags: xorg
   pacman:
-    name: "{{ item }}"
+    name:
+      - artwiz-fonts
+      - cantarell-fonts
+      - font-bh-ttf
+      - font-bitstream-speedo
+      - fontconfig
+      - fontsproto
+      - freetype2
+      - gsfonts
+      - sdl_ttf
+      - sdl2_ttf
+      - ttf-bitstream-vera
+      - ttf-cheapskate
+      - ttf-dejavu
+      - ttf-freefont
+      - ttf-hack
+      - ttf-croscore
+      - ttf-sazanami
+      - ttf-hannom
+      - ttf-droid
+      - ttf-fira-mono
+      - ttf-fira-code
+      - ttf-fira-sans
+      - ttf-hanazono
+      - ttf-cormorant
+      - ttf-baekmuk
+      - otf-cormorant
+      - otf-ipafont
+      - otf-fira-code
+      - otf-font-awesome
+      - powerline-fonts
+      - noto-fonts
+      - noto-fonts-cjk
+      - noto-fonts-emoji
+      - noto-fonts-extra
+      - adobe-source-code-pro-fonts
+      - adobe-source-sans-pro-fonts
+      - adobe-source-serif-pro-fonts
+      - adobe-source-han-sans-otc-fonts
+      - adobe-source-han-sans-kr-fonts
+      - adobe-source-han-sans-jp-fonts
+      - adobe-source-han-sans-cn-fonts
+      - adobe-source-han-sans-tw-fonts
+      - adobe-source-han-serif-cn-fonts
+      - adobe-source-han-serif-jp-fonts
+      - adobe-source-han-serif-kr-fonts
+      - adobe-source-han-serif-otc-fonts
+      - adobe-source-han-serif-tw-fonts
+      - ttf-arphic-ukai
+      - ttf-arphic-uming
+      - opendesktop-fonts
+      - wqy-microhei
+      - wqy-zenhei
+      - wqy-bitmapfont
+      - ttf-liberation
+      - ttf-ubuntu-font-family
+      - xorg-fonts-type1
+      - font-mathematica
+      - ttf-ionicons
+      - ttf-carlito
+      - ttf-linux-libertine
     state: present
-  with_items:
-    - artwiz-fonts
-    - cantarell-fonts
-    - font-bh-ttf
-    - font-bitstream-speedo
-    - fontconfig
-    - fontsproto
-    - freetype2
-    - gsfonts
-    - sdl_ttf
-    - sdl2_ttf
-    - ttf-bitstream-vera
-    - ttf-cheapskate
-    - ttf-dejavu
-    - ttf-freefont
-    - ttf-hack
-    - ttf-croscore
-    - ttf-sazanami
-    - ttf-hannom
-    - ttf-droid
-    - ttf-fira-mono
-    - ttf-fira-code
-    - ttf-fira-sans
-    - ttf-hanazono
-    - ttf-cormorant
-    - ttf-baekmuk
-    - otf-cormorant
-    - otf-ipafont
-    - otf-fira-code
-    - otf-font-awesome
-    - powerline-fonts
-    - noto-fonts
-    - noto-fonts-cjk
-    - noto-fonts-emoji
-    - noto-fonts-extra
-    - adobe-source-code-pro-fonts
-    - adobe-source-sans-pro-fonts
-    - adobe-source-serif-pro-fonts
-    - adobe-source-han-sans-otc-fonts
-    - adobe-source-han-sans-kr-fonts
-    - adobe-source-han-sans-jp-fonts
-    - adobe-source-han-sans-cn-fonts
-    - adobe-source-han-sans-tw-fonts
-    - adobe-source-han-serif-cn-fonts
-    - adobe-source-han-serif-jp-fonts
-    - adobe-source-han-serif-kr-fonts
-    - adobe-source-han-serif-otc-fonts
-    - adobe-source-han-serif-tw-fonts
-    - ttf-arphic-ukai
-    - ttf-arphic-uming
-    - opendesktop-fonts
-    - wqy-microhei
-    - wqy-zenhei
-    - wqy-bitmapfont
-    - ttf-liberation
-    - ttf-ubuntu-font-family
-    - xorg-fonts-type1
-    - font-mathematica
-    - ttf-ionicons
-    - ttf-carlito
-    - ttf-linux-libertine
