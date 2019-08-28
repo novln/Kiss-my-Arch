@@ -26,7 +26,7 @@
 - name: install xfce4 goodies
   tags: xfce4
   pacman:
-    name: "xfce4-battery-plugin,xfce4-screenshooter"
+    name: "xfce4-battery-plugin,xfce4-screenshooter,xfce4-pulseaudio-plugin"
     state: present
 
 - name: install thunar utils
