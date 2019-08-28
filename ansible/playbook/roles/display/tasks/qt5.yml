@@ -4,12 +4,3 @@
   pacman:
     name: "qt5-base,qt5-svg,qt5-x11extras,qt5-styleplugins"
     state: present
-
-- name: write qt5 configuration file
-  tags: qt5
-  template:
-    src: qt5.sh.j2
-    dest: "{{ profile_directory }}/qt5.sh"
-    owner: root
-    group: root
-    mode: 0744
