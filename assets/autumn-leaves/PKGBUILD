@@ -1,0 +1,16 @@
+pkgname=autumn-leaves
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="A warm wallpaper with autumn leaves"
+license=('GPL')
+arch=('any')
+source=($pkgname.tar.gz)
+sha256sums=('SKIP')
+
+package() {
+
+    cd "$pkgname"
+    install -dm755 "${pkgdir}/usr/share/backgrounds"
+    cp -dr --no-preserve='ownership' . "${pkgdir}/usr/share/backgrounds"
+
+}
