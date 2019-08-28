@@ -67,6 +67,24 @@
     group: "{{ user_name }}"
     mode: 0644
 
+- name: write xfce4-thunar configuration
+  tags: xfconf
+  template:
+    src: "xfce4-thunar.xml.j2"
+    dest: "{{ xfconf_xfce4_thunar_path }}"
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    mode: 0644
+
+- name: write xfce4-pointers configuration
+  tags: xfconf
+  template:
+    src: "xfce4-pointers.xml.j2"
+    dest: "{{ xfconf_xfce4_pointers_path }}"
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    mode: 0644
+
 - name: write xfce4-keyboard-shortcuts configuration
   tags: xfconf
   template:
