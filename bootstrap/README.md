@@ -66,6 +66,9 @@ passwd
 ip a show
 ```
 
+> **NOTE:** With virtualbox, you may have to create a host network bridge and a new network adapter
+>           on your VM.
+
 **On remote system:** _(How we install Arch Linux)_
 
 ```
