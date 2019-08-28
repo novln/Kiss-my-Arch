@@ -1,0 +1,34 @@
+# Maintainer: CanalGuada <dguadal at free dot fr>
+# Author: horst3180 @ deviantart
+
+pkgname=vertex-themes
+pkgver=20190828
+pkgrel=0
+pkgdesc='Vertex Gtk2, Gtk3, Metacity, Xfwm, Cinnamon and GNOME Shell themes (GNOME 3.22 version)'
+arch=('any')
+license=('GPL3')
+depends=('gtk-engine-murrine')
+source=(gtk-theme.tar.gz)
+sha256sums=('SKIP')
+
+_gnomever=
+
+# pkgver() {
+#   cd $pkgname
+#   echo $(git show -s --format="%ci" | grep -o "....-..-.." | sed "s/-//g")
+# }
+
+build() {
+  cd gtk-theme
+  ./autogen.sh --prefix=/usr --with-gnome=3.22
+}
+
+package() {
+  cd gtk-theme
+
+  make DESTDIR="$pkgdir" install
+
+  install -Dm644 COPYING "$pkgdir/usr/share/licenses/$pkgname/COPYING"
+  install -Dm644 README.md "$pkgdir/usr/share/themes/Vertex/README"
+
+}
