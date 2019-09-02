@@ -17,7 +17,7 @@ function execute_download() {
 
 execute_download \
   'https://raw.githubusercontent.com/novln/Kiss-my-Arch/master/bootstrap/vbox-install/bootstrap' \
-  '372f48b4c2e57055bf37270a94308ed3628f3807b2c05fb68ae036b9ae5316e0' \
+  'fd6283fd7755602a62107da436c75dc0446b992138dcb9a65f66aab3044ea4eb' \
   '/usr/local/sbin/arch-bootstrap'
 
 execute_download \
