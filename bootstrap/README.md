@@ -74,8 +74,10 @@ ip a show
 ```
 ssh root@192.168.0.32
 
-wget https://raw.githubusercontent.com/november-eleven/Kiss-my-Arch/master/bootstrap/vbox-install/installer -O vbox
+wget https://raw.githubusercontent.com/novln/Kiss-my-Arch/master/bootstrap/vbox-install/installer -O vbox
 less vbox
 chmod u+x vbox
 ./vbox
 ```
+
+> **NOTE:** You may have to disable `PasswordAuthentication no` from **/etc/ssh/ssh_config**.
