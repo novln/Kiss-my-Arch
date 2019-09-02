@@ -117,14 +117,14 @@ function create_partitions() {
 
   echo "[disk] create partitions for ${device}"
 
-  echo "[disk] create EFI system partition"
+  echo "[disk] create Archlinux partition"
   parted -s "${device}" mkpart primary ext4 1MiB 100%
   parted -s "${device}" set 1 boot on
 
 }
 
 function format_filesystem() {
-  declare root="$2"
+  declare root="$1"
 
   echo "[filesystem] make ext4 filesystem for ${root}"
   mkfs.ext4 -F -L Archlinux "${root}"
