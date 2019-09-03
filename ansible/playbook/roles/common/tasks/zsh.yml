@@ -8,7 +8,7 @@
 - name: install zsh plugins with pacman
   tags: zsh
   pacman:
-    name: "zsh-syntax-highlighting,pkgfile"
+    name: "zsh-syntax-highlighting,pkgfile,zsh-autosuggestions,zsh-completions"
     state: present
   register: zsh_plugins
 

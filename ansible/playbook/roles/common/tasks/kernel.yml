@@ -7,19 +7,19 @@
     state: present
   with_items:
     - name: net.ipv4.conf.all.arp_ignore
-      value: 1
+      value: "1"
     - name: net.ipv4.conf.default.arp_ignore
-      value: 1
+      value: "1"
     - name: net.ipv4.conf.all.arp_announce
-      value: 2
+      value: "2"
     - name: net.ipv4.conf.default.arp_announce
-      value: 2
+      value: "2"
 
 - name: enable icmp options in linux kernel
   tags: kernel
   sysctl:
     name: "{{ item }}"
-    value: 1
+    value: "1"
     state: present
   with_items:
     - net.ipv4.icmp_echo_ignore_broadcasts
@@ -33,15 +33,15 @@
     state: present
   with_items:
     - name: net.ipv4.icmp_ratelimit
-      value: 20
+      value: "20"
     - name: net.ipv4.icmp_ratemask
-      value: 88089
+      value: "88089"
 
 - name: enable tcp options in linux kernel
   tags: kernel
   sysctl:
     name: "{{ item }}"
-    value: 1
+    value: "1"
     state: present
   with_items:
     - net.ipv4.tcp_timestamps
@@ -58,7 +58,7 @@
   tags: kernel
   sysctl:
     name: "{{ item }}"
-    value: 0
+    value: "0"
     state: present
   with_items:
     - net.ipv4.tcp_sack
@@ -85,7 +85,7 @@
   tags: kernel
   sysctl:
     name: "{{ item }}"
-    value: 67108864
+    value: "67108864"
     state: present
   with_items:
     - net.core.rmem_max
@@ -95,14 +95,14 @@
   tags: kernel
   sysctl:
     name: "net.core.somaxconn"
-    value: 65536
+    value: "65536"
     state: present
 
 - name: increase tcp backlog in linux kernel
   tags: kernel
   sysctl:
     name: "net.core.netdev_max_backlog"
-    value: 30000
+    value: "30000"
     state: present
 
 - name: configure tcp keepalive in linux kernel
@@ -113,13 +113,13 @@
     state: present
   with_items:
     - name: net.ipv4.tcp_fin_timeout
-      value: 15
+      value: "15"
     - name: net.ipv4.tcp_keepalive_time
-      value: 360
+      value: "360"
     - name: net.ipv4.tcp_keepalive_intvl
-      value: 30
+      value: "30"
     - name: net.ipv4.tcp_keepalive_probes
-      value: 3
+      value: "3"
 
 - name: configure tcp handshake in linux kernel
   tags: kernel
@@ -129,11 +129,11 @@
     state: present
   with_items:
     - name: net.ipv4.tcp_synack_retries
-      value: 3
+      value: "3"
     - name: net.ipv4.tcp_syn_retries
-      value: 3
+      value: "3"
     - name: net.ipv4.tcp_max_syn_backlog
-      value: 4096
+      value: "4096"
 
 - name: increase tcp local port range in linux kernel
   tags: kernel
@@ -146,7 +146,7 @@
   tags: kernel
   sysctl:
     name: "{{ item }}"
-    value: 0
+    value: "0"
     state: present
   with_items:
     - net.ipv6.conf.default.router_solicitations
@@ -172,7 +172,7 @@
   tags: kernel
   sysctl:
     name: "{{ item }}"
-    value: 1
+    value: "1"
     state: present
   with_items:
     - net.ipv6.conf.default.max_addresses
@@ -182,7 +182,7 @@
   tags: kernel
   sysctl:
     name: "{{ item }}"
-    value: 1
+    value: "1"
     state: present
   with_items:
     - net.ipv6.conf.all.disable_ipv6
@@ -220,7 +220,7 @@
   tags: kernel
   sysctl:
     name: "fs.suid_dumpable"
-    value: 0
+    value: "0"
     state: present
 
 - name: update /bin/su ownership
@@ -284,28 +284,28 @@
   tags: kernel
   sysctl:
     name: "kernel.randomize_va_space"
-    value: 2
+    value: "2"
     state: present
 
 - name: disable magic-sysrq key in linux kernel
   tags: kernel
   sysctl:
     name: "kernel.sysrq"
-    value: 0
+    value: "0"
     state: present
 
 - name: increase pid range limit in linux kernel
   tags: kernel
   sysctl:
     name: "kernel.pid_max"
-    value: 4194300
+    value: "4194300"
     state: present
 
 - name: increase system file descriptor limit in linux kernel
   tags: kernel
   sysctl:
     name: "fs.file-max"
-    value: 10000000
+    value: "10000000"
     state: present
 
 - name: configure memory options in linux kernel
@@ -316,16 +316,16 @@
     state: present
   with_items:
     - name: vm.laptop_mode
-      value: 1
+      value: "1"
     - name: vm.swappiness
-      value: 10
+      value: "10"
     - name: vm.dirty_background_bytes
-      value: 4194304
+      value: "4194304"
     - name: vm.dirty_bytes
-      value: 33554432
+      value: "33554432"
     - name: vm.dirty_expire_centisecs
-      value: 400
+      value: "400"
     - name: vm.dirty_writeback_centisecs
-      value: 500
+      value: "500"
     - name: vm.vfs_cache_pressure
-      value: 400
+      value: "400"
