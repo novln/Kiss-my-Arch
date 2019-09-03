@@ -36,11 +36,10 @@
     group: root
     mode: 0644
 
-- name: install X11 fonts with pacman
+- name: install X11 fonts with pacman (this may take a while)
   tags: xorg
   pacman:
     name:
-      - artwiz-fonts
       - cantarell-fonts
       - font-bh-ttf
       - font-bitstream-speedo
@@ -51,9 +50,8 @@
       - sdl_ttf
       - sdl2_ttf
       - ttf-bitstream-vera
-      - ttf-cheapskate
       - ttf-dejavu
-      - ttf-freefont
+      - gnu-free-fonts
       - ttf-hack
       - ttf-croscore
       - ttf-sazanami
