@@ -1,0 +1,19 @@
+pkgname=flat-remix-themes
+pkgver=20190903
+pkgrel=0
+pkgdesc='Flat Remix Gtk2, Gtk3, Metacity, Xfwm, Cinnamon themes (GNOME 3.22 version)'
+arch=('any')
+license=('GPL3')
+url='https://github.com/daniruiz/flat-remix-gtk'
+depends=('gtk-engine-murrine')
+source=($pkgname::git+https://github.com/daniruiz/flat-remix-gtk.git)
+sha256sums=('SKIP')
+
+package() {
+
+  cd "$pkgname"
+  install -dm755 "${pkgdir}/usr/share/themes"
+  cp -dr --no-preserve='ownership' Flat-Remix-GTK-Green-Darkest "${pkgdir}/usr/share/themes"
+  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+
+}
