@@ -1,19 +1,5 @@
 #!/bin/bash
 
-function execute_download() {
-  declare file_url="$1" file_sha256sum="$2" file_path="$3"
-
-  echo "[installer] download ${file_url}"
-  curl -fsSL "${file_url}" -o "${file_path}" || exit 255
-
-  echo "${file_sha256sum} ${file_path}" | sha256sum -c - >/dev/null 2>&1
-  if [[ $? -ne 0 ]]; then
-    echo >&2 "Checksum verification failed for ${file_path}."
-    exit 255
-  fi
-
-}
-
 function configure_hostname() {
   declare hostname="$1"
 

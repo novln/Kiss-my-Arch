@@ -81,3 +81,5 @@ chmod u+x vbox
 ```
 
 > **NOTE:** You may have to disable `PasswordAuthentication no` from **/etc/ssh/ssh_config**.
+
+> **NOTE:** You may need to use a simple terminal, like `xfce4-terminal`.

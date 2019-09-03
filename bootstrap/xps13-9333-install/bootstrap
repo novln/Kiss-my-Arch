@@ -36,7 +36,7 @@ function pacstrap_install() {
   pacstrap /mnt networkmanager wireless_tools wpa_supplicant
 
   echo "[pacstrap] install openssh"
-  pacstrap /mnt openssh
+  pacstrap /mnt openssh sshpass
 
   echo "[pacstrap] install xorg-server"
   pacstrap /mnt xorg-server xorg-xinit xorg-server-utils
