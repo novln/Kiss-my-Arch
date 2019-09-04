@@ -16,3 +16,18 @@
   pacman:
     name: "p7zip"
     state: present
+
+- name: install youtube-dl with pacman
+  tags: youtube-dl
+  pacman:
+    name: "youtube-dl"
+    state: present
+
+- name: configure youtube-dl for zsh
+  tags: youtube-dl
+  template:
+    src: "zprofile.d/youtube-dl.zsh.j2"
+    dest: "{{ zsh_configuration_directory }}/youtube-dl.zsh"
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    mode: 0644

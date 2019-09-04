@@ -57,14 +57,6 @@
     - reveal-md
     - npx
 
-- name: install scala with pacman
-  tags:
-    - develop
-    - scala
-  pacman:
-    name: "jdk8-openjdk,jre8-openjdk,sbt,scala"
-    state: present
-
 - name: install go with pacman
   tags:
     - develop
