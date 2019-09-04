@@ -12,7 +12,7 @@
     - tools
     - wireshark
   pacman:
-    name: "wireshark-gtk"
+    name: "wireshark-qt"
     state: present
 
 - name: install aws-cli with pacman
