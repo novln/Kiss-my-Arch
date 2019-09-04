@@ -38,6 +38,14 @@ $ ansible-playbook playbook/install.yml
 
 > **NOTE:** Don't hesitate to edit the configuration file located at `ansible/playbook/conf/common.yml`
 
+## Screenshots
+
+![Lightdm screenshot](assets/screenshots/lightdm.png)
+
+![Xfce clean screenshot](assets/screenshots/xfce-clean.png)
+
+![Xfce busy screenshot](assets/screenshots/xfce-busy.png)
+
 ## Online resources
 
 > `elinks https://novln.github.io/Kiss-my-Arch/`
