@@ -5,12 +5,6 @@
     name: "xfce4"
     state: present
 
-- name: install gtk-xfce engines
-  tags: xfce4
-  pacman:
-    name: "gtk-xfce-engine"
-    state: present
-
 - name: install xfce4-notifyd
   tags: xfce4
   pacman:

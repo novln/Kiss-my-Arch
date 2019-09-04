@@ -21,17 +21,6 @@
     name: "faenza-icon-theme"
     state: present
 
-- name: download faenza-eleven icon themes
-  tags: icon
-  get_url:
-    url: "{{ faenza_eleven_url }}"
-    dest: "{{ faenza_eleven_path }}"
-    checksum: "sha256:{{ faenza_eleven_sha256 }}"
-
-- name: install faenza-eleven icon themes
-  tags: icon
-  command: "pacman --noconfirm --noprogressbar --needed -U '{{ faenza_eleven_path }}'"
-
 - name: download autumn-leaves wallpaper themes
   tags: wallpaper
   get_url:
@@ -41,7 +30,9 @@
 
 - name: install autumn-leaves wallpaper themes
   tags: wallpaper
-  command: "pacman --noconfirm --noprogressbar --needed -U '{{ autumn_leaves_path }}'"
+  pacman:
+    name: "{{ autumn_leaves_path }}"
+    state: present
 
 - name: download cookie wallpaper themes
   tags: wallpaper
@@ -52,7 +43,9 @@
 
 - name: install cookie wallpaper themes
   tags: wallpaper
-  command: "pacman --noconfirm --noprogressbar --needed -U '{{ cookie_wallpapers_path }}'"
+  pacman:
+    name: "{{ cookie_wallpapers_path }}"
+    state: present
 
 - name: download Vertex gtk themes
   tags: gtk
@@ -63,4 +56,19 @@
 
 - name: install Vertex gtk themes
   tags: gtk
-  command: "pacman --noconfirm --noprogressbar --needed -U '{{ vertex_path }}'"
+  pacman:
+    name: "{{ vertex_path }}"
+    state: present
+
+- name: download Flat Remix gtk and icon themes
+  tags: gtk
+  get_url:
+    url: "{{ flat_remix_url }}"
+    dest: "{{ flat_remix_path }}"
+    checksum: "sha256:{{ flat_remix_sha256 }}"
+
+- name: install Flat Remix gtk and icon themes
+  tags: gtk
+  pacman:
+    name: "{{ flat_remix_path }}"
+    state: present
