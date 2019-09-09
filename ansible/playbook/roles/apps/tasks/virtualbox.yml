@@ -2,7 +2,7 @@
 - name: install virtualbox for host
   tags: virtualbox
   pacman:
-    name: "virtualbox-host-modules-arch,virtualbox,qt4,net-tools"
+    name: "virtualbox-host-modules-arch,virtualbox,net-tools"
     state: present
   when: ansible_virtualization_role == "host"
 
