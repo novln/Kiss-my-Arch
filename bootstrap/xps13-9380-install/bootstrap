@@ -1,15 +1,22 @@
 #!/bin/bash
 
 function mount_filesystem() {
-  declare root="$1"
+  declare esp="$1" root="$1"
 
   echo "[mount] /"
   mkdir -p /mnt
   mount "${root}" /mnt
 
+  echo "[mount] /boot"
+  mkdir -p /mnt/boot
+  mount "${esp}" /mnt/boot
+
 }
 
 function umount_filesystem() {
+
+  echo "[umount] /boot"
+  umount /mnt/boot
 
   echo "[umount] /"
   umount /mnt
@@ -112,14 +119,22 @@ function wipe_disk() {
 function create_partitions() {
   declare device="$1"
 
-  echo "[disk] create Archlinux partition"
-  parted -s "${device}" mkpart primary ext4 1MiB 100%
+  echo "[disk] create partitions for ${device}"
+
+  echo "[disk] create EFI system partition"
+  parted -s "${device}" mkpart ESP fat32 1MiB 513MiB
   parted -s "${device}" set 1 boot on
+
+  echo "[disk] create Archlinux partition"
+  parted -s "${device}" mkpart primary ext4 513MiB 100%
 
 }
 
 function format_filesystem() {
-  declare root="$1"
+  declare esp="$1" root="$2"
+
+  echo "[filesystem] make fat32 filesystem for ${esp}"
+  mkfs.vfat -F 32 -n EFI "${esp}"
 
   echo "[filesystem] make ext4 filesystem for ${root}"
   mkfs.ext4 -F -L Archlinux "${root}"
@@ -278,8 +293,8 @@ function ask_configuration() {
 ask_configuration
 wipe_disk "/dev/nvme0n1"
 create_partitions "/dev/nvme0n1"
-format_filesystem "/dev/nvme0n1p1"
-mount_filesystem "/dev/nvme0n1p1"
+format_filesystem "/dev/nvme0n1p1" "/dev/nvme0n1p2"
+mount_filesystem "/dev/nvme0n1p1" "/dev/nvme0n1p2"
 pacstrap_install
 generate_fstab
 execute_chroot
