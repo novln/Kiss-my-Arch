@@ -121,7 +121,7 @@ function format_filesystem() {
   declare root="$1"
 
   echo "[filesystem] make ext4 filesystem for ${root}"
-  mkfs.ext4 -F -L Archlinux "${root}"
+  mkfs.ext4 -F -L Archlinux "${root}" || exit 255
 
 }
 
