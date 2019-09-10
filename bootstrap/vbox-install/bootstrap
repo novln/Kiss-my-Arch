@@ -39,7 +39,7 @@ function pacstrap_install() {
   pacstrap /mnt openssh sshpass || exit 255
 
   echo "[pacstrap] install xorg-server"
-  pacstrap /mnt xorg-server xorg-xinit xorg-server-utils || exit 255
+  pacstrap /mnt xorg-server xorg-xinit || exit 255
 
   echo "[pacstrap] install xorg-driver"
   pacstrap /mnt xf86-video-vesa xf86-input-mouse xf86-input-keyboard || exit 255
