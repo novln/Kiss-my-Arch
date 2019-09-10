@@ -4,66 +4,66 @@ function mount_filesystem() {
   declare root="$1"
 
   echo "[mount] /"
-  mkdir -p /mnt
-  mount "${root}" /mnt
+  mkdir -p /mnt || exit 255
+  mount "${root}" /mnt || exit 255
 
 }
 
 function umount_filesystem() {
 
   echo "[umount] /"
-  umount /mnt
+  umount /mnt || exit 255
 
 }
 
 function pacstrap_install() {
 
   echo "[pacstrap] update system clock"
-  timedatectl set-ntp true
+  timedatectl set-ntp true || exit 255
 
   echo "[pacstrap] configure mirrorlist"
-  echo 'Server = http://mir.archlinux.fr/$repo/os/$arch' > /etc/pacman.d/mirrorlist
-  echo 'Server = http://delta.archlinux.fr/$repo/os/$arch' >> /etc/pacman.d/mirrorlist
-  echo 'Server = http://mirrors.kernel.org/archlinux/$repo/os/x86_64' >> /etc/pacman.d/mirrorlist
+  echo 'Server = http://mir.archlinux.fr/$repo/os/$arch' > /etc/pacman.d/mirrorlist || exit 255
+  echo 'Server = http://delta.archlinux.fr/$repo/os/$arch' >> /etc/pacman.d/mirrorlist || exit 255
+  echo 'Server = http://mirrors.kernel.org/archlinux/$repo/os/x86_64' >> /etc/pacman.d/mirrorlist || exit 255
 
   echo "[pacstrap] install base"
-  pacstrap /mnt base base-devel bash-completion
+  pacstrap /mnt base base-devel bash-completion || exit 255
 
   echo "[pacstrap] install grub"
-  pacstrap /mnt grub os-prober
+  pacstrap /mnt grub os-prober || exit 255
 
   echo "[pacstrap] install network-manager"
-  pacstrap /mnt networkmanager
+  pacstrap /mnt networkmanager || exit 255
 
   echo "[pacstrap] install openssh"
-  pacstrap /mnt openssh sshpass
+  pacstrap /mnt openssh sshpass || exit 255
 
   echo "[pacstrap] install xorg-server"
-  pacstrap /mnt xorg-server xorg-xinit xorg-server-utils
+  pacstrap /mnt xorg-server xorg-xinit xorg-server-utils || exit 255
 
   echo "[pacstrap] install xorg-driver"
-  pacstrap /mnt xf86-video-vesa xf86-input-mouse xf86-input-keyboard
+  pacstrap /mnt xf86-video-vesa xf86-input-mouse xf86-input-keyboard || exit 255
 
   echo "[pacstrap] install virtualbox-guest-utils"
-  pacstrap /mnt virtualbox-guest-modules-arch virtualbox-guest-utils
+  pacstrap /mnt virtualbox-guest-modules-arch virtualbox-guest-utils || exit 255
 
   echo "[pacstrap] install intel-ucode"
-  pacstrap /mnt intel-ucode
+  pacstrap /mnt intel-ucode || exit 255
 
   echo "[pacstrap] install python2"
-  pacstrap /mnt python2
+  pacstrap /mnt python2 || exit 255
 
   echo "[pacstrap] install sudo"
-  pacstrap /mnt sudo
+  pacstrap /mnt sudo || exit 255
 
 }
 
 function generate_fstab() {
 
   echo "[fstab] generate"
-  genfstab -U /mnt > /mnt/etc/fstab
-  chmod 0644  /mnt/etc/fstab
-  chown root:root  /mnt/etc/fstab
+  genfstab -U /mnt > /mnt/etc/fstab || exit 255
+  chmod 0644  /mnt/etc/fstab || exit 255
+  chown root:root  /mnt/etc/fstab || exit 255
 
   echo "[fstab] configure"
   sed -r -e 's#rw,relatime,data=ordered#defaults,noatime,discard#g' -i /mnt/etc/fstab
@@ -74,17 +74,11 @@ function generate_fstab() {
 function execute_chroot() {
 
   echo "[chroot] copy configure script"
-  cp /usr/local/sbin/arch-configure /mnt/install
-  if [[ $? -ne 0 ]]; then
-    exit 255
-  fi
+  cp /usr/local/sbin/arch-configure /mnt/install || exit 255
 
   echo "[chroot] execute configure script"
-  arch-chroot /mnt /install
-  if [[ $? -ne 0 ]]; then
-    exit 255
-  fi
-  rm /mnt/install
+  arch-chroot /mnt /install || exit 255
+  rm /mnt/install || exit 255
 
 }
 
@@ -108,7 +102,7 @@ function wipe_disk() {
     exit 255
   fi
 
-  parted -s "${device}" mklabel msdos
+  parted -s "${device}" mklabel msdos || exit 255
 
 }
 
@@ -118,8 +112,8 @@ function create_partitions() {
   echo "[disk] create partitions for ${device}"
 
   echo "[disk] create Archlinux partition"
-  parted -s "${device}" mkpart primary ext4 1MiB 100%
-  parted -s "${device}" set 1 boot on
+  parted -s "${device}" mkpart primary ext4 1MiB 100% || exit 255
+  parted -s "${device}" set 1 boot on || exit 255
 
 }
 

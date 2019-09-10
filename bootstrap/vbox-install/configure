@@ -4,9 +4,9 @@ function configure_hostname() {
   declare hostname="$1"
 
   echo "[hostname] configure"
-  echo "${hostname}" > /etc/hostname
-  chmod 0644 /etc/hostname
-  chown root:root /etc/hostname
+  echo "${hostname}" > /etc/hostname || exit 255
+  chmod 0644 /etc/hostname || exit 255
+  chown root:root /etc/hostname || exit 255
 
 }
 
@@ -14,15 +14,15 @@ function configure_locale() {
   declare locale="$1" lang="$2"
 
   echo "[locale] generate"
-  echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
-  echo "${locale}" >> /etc/locale.gen
-  chmod 0644 /etc/locale.gen
-  chown root:root /etc/locale.gen
+  echo "en_US.UTF-8 UTF-8" > /etc/locale.gen || exit 255
+  echo "${locale}" >> /etc/locale.gen || exit 255
+  chmod 0644 /etc/locale.gen || exit 255
+  chown root:root /etc/locale.gen || exit 255
 
-  echo "LANG=\"${lang}\"" > /etc/locale.conf
-  chmod 0644 /etc/locale.conf
-  chown root:root /etc/locale.conf
-  locale-gen
+  echo "LANG=\"${lang}\"" > /etc/locale.conf || exit 255
+  chmod 0644 /etc/locale.conf || exit 255
+  chown root:root /etc/locale.conf || exit 255
+  locale-gen || exit 255
 
 }
 
@@ -31,10 +31,10 @@ function configure_vconsole() {
   declare keymap="$1" font="$2"
 
   echo "[vconsole] configure"
-  echo "KEYMAP=${keymap}" > /etc/vconsole.conf
-  echo "FONT=${font}" >> /etc/vconsole.conf
-  chmod 0644 /etc/vconsole.conf
-  chown root:root /etc/vconsole.conf
+  echo "KEYMAP=${keymap}" > /etc/vconsole.conf || exit 255
+  echo "FONT=${font}" >> /etc/vconsole.conf || exit 255
+  chmod 0644 /etc/vconsole.conf || exit 255
+  chown root:root /etc/vconsole.conf || exit 255
 
 }
 
@@ -42,10 +42,7 @@ function configure_timezone() {
   declare timezone="$1"
 
   echo "[timezone] use ${timezone}"
-  ln -sf /usr/share/zoneinfo/${timezone} /etc/localtime
-  if [[ $? -ne 0 ]]; then
-    exit 255
-  fi
+  ln -sf /usr/share/zoneinfo/${timezone} /etc/localtime || exit 255
   hwclock --systohc --utc
 
 }
@@ -54,107 +51,109 @@ function configure_mkinitcpio() {
   declare modules="$1" binaries="$2" files="$3" hooks="$4"
 
   echo "[mkinitcpio] reset configuration"
-  echo '' > /etc/mkinitcpio.conf
+  echo '' > /etc/mkinitcpio.conf || exit 255
 
   echo "[mkinitcpio] configure modules with: ${modules}"
-  echo "# MODULES" >> /etc/mkinitcpio.conf
-  echo "MODULES=\"${modules}\"" >> /etc/mkinitcpio.conf
-  echo "" >> /etc/mkinitcpio.conf
+  echo "# MODULES" >> /etc/mkinitcpio.conf || exit 255
+  echo "MODULES=\"${modules}\"" >> /etc/mkinitcpio.conf || exit 255
+  echo "" >> /etc/mkinitcpio.conf || exit 255
 
   echo "[mkinitcpio] configure binaries with: ${binaries}"
-  echo "# BINARIES" >> /etc/mkinitcpio.conf
-  echo "BINARIES=\"${binaries}\"" >> /etc/mkinitcpio.conf
-  echo "" >> /etc/mkinitcpio.conf
+  echo "# BINARIES" >> /etc/mkinitcpio.conf || exit 255
+  echo "BINARIES=\"${binaries}\"" >> /etc/mkinitcpio.conf || exit 255
+  echo "" >> /etc/mkinitcpio.conf || exit 255
 
   echo "[mkinitcpio] configure files with: ${files}"
-  echo "# FILES" >> /etc/mkinitcpio.conf
-  echo "FILES=\"${files}\"" >> /etc/mkinitcpio.conf
-  echo "" >> /etc/mkinitcpio.conf
+  echo "# FILES" >> /etc/mkinitcpio.conf || exit 255
+  echo "FILES=\"${files}\"" >> /etc/mkinitcpio.conf || exit 255
+  echo "" >> /etc/mkinitcpio.conf || exit 255
 
   echo "[mkinitcpio] configure hooks with: ${hooks}"
-  echo "# HOOKS" >> /etc/mkinitcpio.conf
-  echo "HOOKS=\"${hooks}\"" >> /etc/mkinitcpio.conf
-  echo "" >> /etc/mkinitcpio.conf
+  echo "# HOOKS" >> /etc/mkinitcpio.conf || exit 255
+  echo "HOOKS=\"${hooks}\"" >> /etc/mkinitcpio.conf || exit 255
+  echo "" >> /etc/mkinitcpio.conf || exit 255
 
   echo "[mkinitcpio] configure kernel"
-  mkinitcpio -p linux
+  mkinitcpio -p linux || exit 255
 
 }
 
 function configure_modprobe() {
 
   echo "[modprobe] configure"
-  echo 'blacklist pcspkr' > /etc/modprobe.d/nobeep.conf
-  chmod 0644  /etc/modprobe.d/nobeep.conf
-  chown root:root  /etc/modprobe.d/nobeep.conf
+  echo 'blacklist pcspkr' > /etc/modprobe.d/nobeep.conf || exit 255
+  chmod 0644  /etc/modprobe.d/nobeep.conf || exit 255
+  chown root:root  /etc/modprobe.d/nobeep.conf || exit 255
 
 }
 
 function configure_network() {
 
   echo "[network] enable network-manager"
-  systemctl enable NetworkManager.service
+  systemctl enable NetworkManager.service || exit 255
 
   echo "[network] enable sshd"
-  systemctl enable sshd.service
+  systemctl enable sshd.service || exit 255
 
 }
 
 function configure_pacman() {
 
   echo "[pacman] configure mirrorlist"
-  echo 'Server = http://mir.archlinux.fr/$repo/os/$arch' > /etc/pacman.d/mirrorlist
-  echo 'Server = http://delta.archlinux.fr/$repo/os/$arch' >> /etc/pacman.d/mirrorlist
-  echo 'Server = http://mirrors.kernel.org/archlinux/$repo/os/$arch' >> /etc/pacman.d/mirrorlist
-  echo 'Server = http://archlinux.mirrors.ovh.net/archlinux/$repo/os/$arch' >> /etc/pacman.d/mirrorlist
-  chmod 0644 /etc/pacman.d/mirrorlist
-  chown root:root /etc/pacman.d/mirrorlist
+  echo 'Server = http://mir.archlinux.fr/$repo/os/$arch' > /etc/pacman.d/mirrorlist || exit 255
+  echo 'Server = http://delta.archlinux.fr/$repo/os/$arch' >> /etc/pacman.d/mirrorlist || exit 255
+  echo 'Server = http://mirrors.kernel.org/archlinux/$repo/os/$arch' >> /etc/pacman.d/mirrorlist || exit 255
+  echo 'Server = http://archlinux.mirrors.ovh.net/archlinux/$repo/os/$arch' >> /etc/pacman.d/mirrorlist || exit 255
+  chmod 0644 /etc/pacman.d/mirrorlist || exit 255
+  chown root:root /etc/pacman.d/mirrorlist || exit 255
 
 }
 
 function configure_bootloader() {
 
   echo "[bootloader] install grub"
-  grub-install --target=i386-pc /dev/sda
+  grub-install --target=i386-pc /dev/sda || exit 255
 
   echo "[bootloader] configure grub"
-  sed -r -e 's#GRUB_CMDLINE_LINUX_DEFAULT="quiet"#GRUB_CMDLINE_LINUX_DEFAULT="quiet elevator=noop"#' -i /etc/default/grub
-  sed -r -e 's/^#?GRUB_TIMEOUT=.*$/GRUB_TIMEOUT=0/' -i /etc/default/grub
+  sed -r -e 's#GRUB_CMDLINE_LINUX_DEFAULT="quiet"#GRUB_CMDLINE_LINUX_DEFAULT="quiet elevator=noop"#' \
+    -i /etc/default/grub || exit 255
+  sed -r -e 's/^#?GRUB_TIMEOUT=.*$/GRUB_TIMEOUT=0/' -i /etc/default/grub || exit 255
 
   echo "[bootloader] update grub"
-  grub-mkconfig -o /boot/grub/grub.cfg
+  grub-mkconfig -o /boot/grub/grub.cfg || exit 255
 
 }
 
 function configure_vbox() {
 
   echo "[vbox] enable vboxservice"
-  systemctl enable vboxservice.service
+  systemctl enable vboxservice.service || exit 255
 
 }
 
 function configure_x11() {
 
   echo "[xorg] configure keyboard"
-  localectl set-x11-keymap fr oss
+  localectl set-x11-keymap fr oss || exit 255
 
 }
 
 function configure_user() {
   declare root_passwd="$1" user_name="$2" user_passwd="$3" user_comment="$4"
 
-  echo "[user] configure root password"
-  echo "root:${root_passwd}" | chpasswd
+  echo "[user] configure root password" || exit 255
+  echo "root:${root_passwd}" | chpasswd || exit 255
 
   echo "[user] add ${user_name} user"
-  useradd -m -s /bin/bash -G 'log,audio,lp,storage,systemd-journal,users,wheel' -c "${user_comment}" "${user_name}"
+  useradd -m -s /bin/bash -G 'log,audio,lp,storage,systemd-journal,users,wheel' \
+    -c "${user_comment}" "${user_name}" || exit 255
 
   echo "[user] configure ${user_name} password"
-  echo "${user_name}:${user_passwd}" | chpasswd
+  echo "${user_name}:${user_passwd}" | chpasswd || exit 255
 
   echo "[user] configure sudo"
-  echo "${user_name} ALL=(ALL) ALL" > "/etc/sudoers.d/${user_name}"
-  echo "Defaults pwfeedback" > "/etc/sudoers.d/feedback"
+  echo "${user_name} ALL=(ALL) ALL" > "/etc/sudoers.d/${user_name}" || exit 255
+  echo "Defaults pwfeedback" > "/etc/sudoers.d/feedback" || exit 255
 
 }
 

@@ -17,19 +17,15 @@ function execute_download() {
 
 execute_download \
   'https://raw.githubusercontent.com/novln/Kiss-my-Arch/master/bootstrap/vbox-install/bootstrap' \
-  '290f0f94d8756b6b9182e360a7879913fd7ea2188eb9b1e648917bae95ca4b1a' \
+  '2416a9a78838db68e2b5914ca9ae1c086ef56eab8b868cd513f8af88d20afe25' \
   '/usr/local/sbin/arch-bootstrap'
 
 execute_download \
   'https://raw.githubusercontent.com/novln/Kiss-my-Arch/master/bootstrap/vbox-install/configure' \
-  '2771e81b56e871497a28db50932d55a48d593494ec6101ec3bee8fc4908015ee' \
+  'f55f69e3cfb4fafd64f54e45a371eba9d9ba7bca1051305638e22f721f1276b9' \
   '/usr/local/sbin/arch-configure'
 
-timedatectl set-ntp true
-
-/usr/local/sbin/arch-bootstrap
-if [[ $? -ne 0 ]]; then
-  exit 254
-fi
+timedatectl set-ntp true || exit 253
+/usr/local/sbin/arch-bootstrap || exit 254
 
 exit 0
