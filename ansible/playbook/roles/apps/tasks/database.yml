@@ -6,3 +6,11 @@
   pacman:
     name: "postgresql-libs"
     state: present
+
+- name: install dbeaver with pacman
+  tags:
+    - database
+    - postgres
+  pacman:
+    name: "dbeaver"
+    state: present
