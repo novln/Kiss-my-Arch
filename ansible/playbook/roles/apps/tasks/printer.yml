@@ -11,4 +11,26 @@
     name: "gtk3-print-backends"
     state: present
 
-# TODO: Add cups
+- name: install cups
+  tags: printer
+  pacman:
+    name: "cups"
+    state: present
+
+- name: enable cups
+  tags: printer
+  service:
+    name: org.cups.cupsd.service
+    enabled: yes
+
+- name: install sane
+  tags: printer
+  pacman:
+    name: "sane,simple-scan"
+    state: present
+
+- name: install hplip
+  tags: printer
+  pacman:
+    name: "hplip,python-pillow,python-pyqt5"
+    state: present
