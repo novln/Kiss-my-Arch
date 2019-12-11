@@ -1,0 +1,15 @@
+---
+- name: install time with pacman
+  tags: time
+  pacman:
+    name: "time"
+    state: present
+
+- name: configure time for zsh
+  tags: time
+  template:
+    src: "zshrc.d/time.zsh.j2"
+    dest: "{{ zsh_configuration_directory }}/time.zsh"
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    mode: 0644
