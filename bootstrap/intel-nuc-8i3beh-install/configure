@@ -77,7 +77,7 @@ function configure_mkinitcpio() {
   echo "" >> /etc/mkinitcpio.conf
 
   echo "[mkinitcpio] configure kernel"
-  mkinitcpio -p linux-zen
+  mkinitcpio -p linux
 
 }
 

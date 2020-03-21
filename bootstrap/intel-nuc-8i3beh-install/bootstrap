@@ -34,7 +34,7 @@ function pacstrap_install() {
   echo 'Server = http://mirrors.kernel.org/archlinux/$repo/os/x86_64' >> /etc/pacman.d/mirrorlist
 
   echo "[pacstrap] install base"
-  pacstrap /mnt base base-devel bash-completion linux-zen
+  pacstrap /mnt base base-devel bash-completion
 
   echo "[pacstrap] install grub"
   pacstrap /mnt grub os-prober efibootmgr
