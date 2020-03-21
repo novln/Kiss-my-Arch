@@ -20,7 +20,7 @@
 - name: install gtk packages
   tags: gtk
   pacman:
-    name: "pygtk,gnome-common,gnome-doc-utils"
+    name: "pygtk,gnome-common"
     state: present
 
 - name: install gtk themes

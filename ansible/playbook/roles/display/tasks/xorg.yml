@@ -6,10 +6,17 @@
     state: present
   register: xorg_install
 
-- name: install Xorg input drivers
+- name: install Xorg input drivers for laptop
   tags: xorg
   pacman:
-    name: "xf86-input-libinput,xf86-input-mouse,xf86-input-keyboard,xsel,xclip"
+    name: "xf86-input-libinput,xf86-input-mouse,xf86-input-keyboard"
+    state: present
+  when: xorg_desktop is undefined or xorg_desktop is false
+
+- name: install Xorg input drivers for all
+  tags: xorg
+  pacman:
+    name: "xsel,xclip"
     state: present
 
 - name: install Xorg video drivers
@@ -44,7 +51,6 @@
       - font-bh-ttf
       - font-bitstream-speedo
       - fontconfig
-      - fontsproto
       - freetype2
       - gsfonts
       - sdl_ttf
