@@ -17,7 +17,7 @@ function execute_download() {
 
 execute_download \
   'https://raw.githubusercontent.com/novln/Kiss-my-Arch/master/bootstrap/intel-nuc-8i3beh-install/bootstrap' \
-  'dd4debbe3824b234f040924fc10ee107dfb2916be715a4ad32ecfa6ddb616f07' \
+  '2dea5fa7c5d01909d9fe6e20fd96a4e2615922bc4ea671b0e8d6a605a2b87080' \
   '/usr/local/sbin/arch-bootstrap'
 
 execute_download \

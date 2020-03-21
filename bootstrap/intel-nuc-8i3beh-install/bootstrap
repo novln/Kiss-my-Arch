@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function mount_filesystem() {
-  declare esp="$1" root="$1"
+  declare esp="$1" root="$2"
 
   echo "[mount] /"
   mkdir -p /mnt
