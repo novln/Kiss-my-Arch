@@ -22,7 +22,7 @@ execute_download \
 
 execute_download \
   'https://raw.githubusercontent.com/novln/Kiss-my-Arch/master/bootstrap/intel-nuc-8i3beh-install/configure' \
-  '488de18fd8039806e9ed833c3ed1056ca15697d83946e6a1b0af498e29cffe17' \
+  'd9ae7dc16e1e0ea5bd186ac3837a9eee08fce1e718b52829634e00fc4a581945' \
   '/usr/local/sbin/arch-configure'
 
 timedatectl set-ntp true

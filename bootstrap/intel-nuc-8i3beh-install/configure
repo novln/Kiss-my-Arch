@@ -77,7 +77,7 @@ function configure_mkinitcpio() {
   echo "" >> /etc/mkinitcpio.conf
 
   echo "[mkinitcpio] configure kernel"
-  mkinitcpio -p linux
+  mkinitcpio -p linux-zen
 
 }
 
@@ -135,13 +135,6 @@ function configure_bootloader() {
 
 }
 
-function configure_x11() {
-
-  echo "[xorg] configure keyboard"
-  localectl set-x11-keymap fr oss
-
-}
-
 function configure_user() {
   declare root_passwd="$1" user_name="$2" user_passwd="$3" user_comment="$4"
 
@@ -164,10 +157,9 @@ configure_hostname "archlinux"
 configure_locale "fr_FR.UTF-8 UTF-8" "fr_FR.UTF-8"
 configure_vconsole "fr-pc" "lat9w-16"
 configure_timezone "Europe/Paris"
-configure_mkinitcpio "intel_agp i915 ext4" "" "" "base udev autodetect modconf block encrypt lvm2 filesystems keyboard fsck"
+configure_mkinitcpio "intel_agp i915 ext4" "" "" "base udev autodetect modconf block filesystems keyboard fsck"
 configure_network
 configure_pacman
 configure_modprobe
 configure_bootloader
-configure_x11
 configure_user "${ROOT_PASSWORD}" "${USER_NAME}" "${USER_PASSWORD}" "${USER_COMMENT}"
