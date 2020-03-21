@@ -17,12 +17,12 @@ function execute_download() {
 
 execute_download \
   'https://raw.githubusercontent.com/novln/Kiss-my-Arch/master/bootstrap/intel-nuc-8i3beh-install/bootstrap' \
-  '2dea5fa7c5d01909d9fe6e20fd96a4e2615922bc4ea671b0e8d6a605a2b87080' \
+  '6b191520f112237da2b46c45b161896040fc0fe4c9b2d5ce796556d45fd64833' \
   '/usr/local/sbin/arch-bootstrap'
 
 execute_download \
   'https://raw.githubusercontent.com/novln/Kiss-my-Arch/master/bootstrap/intel-nuc-8i3beh-install/configure' \
-  'd9ae7dc16e1e0ea5bd186ac3837a9eee08fce1e718b52829634e00fc4a581945' \
+  'b0d1af677cb3f6cdd2b21b43cb6bc21aacc7684125c512d90ec4ee7744912ffe' \
   '/usr/local/sbin/arch-configure'
 
 timedatectl set-ntp true
