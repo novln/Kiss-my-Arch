@@ -1,7 +1,7 @@
 pkgname=flat-remix-themes
-pkgver=20190905
+pkgver=20201218
 pkgrel=0
-pkgdesc='Flat Remix Gtk2, Gtk3, Metacity, Xfwm, Cinnamon themes (GNOME 3.22 version)'
+pkgdesc='Flat Remix GTK theme is a pretty simple gtk window theme inspired on material design following a modern design using "flat" colors with high contrasts and sharp borders.'
 arch=('any')
 license=('GPL3')
 url='https://github.com/daniruiz/flat-remix-gtk'
