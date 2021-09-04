@@ -3,6 +3,7 @@
   tags: hostname
   hostname:
     name: "{{ inventory_hostname }}"
+    use: systemd
 
 - name: write /etc/hosts
   tags: hostname

@@ -43,4 +43,5 @@
       - python2
       - bash-completion
       - bind-tools
+      - inetutils
     state: present
