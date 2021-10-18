@@ -49,7 +49,7 @@ Host *
     PasswordAuthentication no
     ChallengeResponseAuthentication no
     PubkeyAuthentication yes
-    HostKeyAlgorithms ssh-rsa
+    HostKeyAlgorithms ssh-rsa,rsa-sha2-512
 
     KexAlgorithms {{ ssh_key_exchange_client }}
     MACs {{ ssh_message_auth_code }}
