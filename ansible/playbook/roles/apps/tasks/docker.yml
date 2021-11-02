@@ -5,13 +5,6 @@
     name: "docker"
     state: present
 
-- name: add user in docker group
-  tags: docker
-  user:
-    append: yes
-    name: "{{ user_name }}"
-    groups: docker
-
 - name: enable docker
   tags: docker
   service:

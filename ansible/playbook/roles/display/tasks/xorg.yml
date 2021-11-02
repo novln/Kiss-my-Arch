@@ -44,12 +44,10 @@
     mode: 0644
 
 - name: install X11 fonts with pacman (this may take a while)
-  tags: xorg
+  tags: fonts
   pacman:
     name:
       - cantarell-fonts
-      - font-bh-ttf
-      - font-bitstream-speedo
       - fontconfig
       - freetype2
       - gsfonts
@@ -71,7 +69,6 @@
       - ttf-baekmuk
       - otf-cormorant
       - otf-ipafont
-      - otf-fira-code
       - otf-font-awesome
       - powerline-fonts
       - noto-fonts
@@ -100,7 +97,6 @@
       - ttf-liberation
       - ttf-ubuntu-font-family
       - xorg-fonts-type1
-      - font-mathematica
       - ttf-ionicons
       - ttf-carlito
       - ttf-linux-libertine

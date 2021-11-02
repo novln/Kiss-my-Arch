@@ -20,7 +20,7 @@
 - name: enable cups
   tags: printer
   service:
-    name: org.cups.cupsd.service
+    name: cups.service
     enabled: yes
 
 - name: install sane

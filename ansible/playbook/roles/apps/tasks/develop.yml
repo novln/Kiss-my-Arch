@@ -134,5 +134,5 @@
     - develop
     - python
   pacman:
-    name: "python-pip,python-virtualenv"
+    name: "python-pip"
     state: present
